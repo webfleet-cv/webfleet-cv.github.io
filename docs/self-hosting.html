@@ -71,18 +71,19 @@
 <article class="docs-content">
 <p class="eyebrow">Operate Web Fleet</p>
 <h1>Self-hosting</h1>
-<p class="docs-lede">Web Fleet should remain comfortable on one ordinary VPS or home server even after larger deployment options exist.</p>
+<p class="docs-lede">Web Fleet is being built to remain comfortable on one ordinary VPS or home server even after larger deployment options exist.</p>
 
 <h2 id="default">Default deployment</h2>
 <pre><code class="language-text">┌─────────────────────────────┐
 │ webfleet                    │
 │  ├── HTTP/dashboard         │
 │  ├── monitor scheduler      │
-│  ├── crawler workers        │
-│  └── analytics ingestion    │
+│  └── crawler workers        │
 └──────────────┬──────────────┘
                │
-            SQLite</code></pre>
+            SQLite
+
+Analytics ingestion is planned for the next phase.</code></pre>
 
 <p>That integrated shape is the default. It should not be treated as a toy deployment.</p>
 

@@ -67,7 +67,7 @@
     if (language === 'json') return highlightJson(source);
 
     const patterns = {
-      shell: /#[^\n]*|"(?:\\.|[^"\\])*"|'[^']*'|\b(?:curl|sh|webfleet|export|sudo|systemctl)\b/g,
+      shell: /#[^\n]*|"(?:\\.|[^"\\])*"|'[^']*'|\b(?:curl|sh|go|webfleet|export|sudo|systemctl)\b/g,
       javascript: /\/\/[^\n]*|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|\b(?:const|let|var|return|async|await|function|true|false|null)\b|\b\d+(?:\.\d+)?\b/g
     };
     const regex = patterns[language];

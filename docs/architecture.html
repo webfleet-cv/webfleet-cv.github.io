@@ -85,8 +85,8 @@
 │ monitor scheduler         │
 │ remote check workers      │
 │ crawler                   │
-│ analytics ingest/rollups  │
-│ retention/maintenance     │
+│ analytics ingest/rollups  │  planned
+│ retention/maintenance     │  planned
 └──────────────┬────────────┘
                │
            SQLite first
@@ -96,7 +96,7 @@
 <p>Analytics can share Web Fleet's site/auth/storage foundations while avoiding dependencies on monitoring, crawling, TLS or DNS features. That leaves open a future standalone deployment profile without duplicating the whole product today.</p>
 
 <h2 id="frontend">Frontend</h2>
-<p>The dashboard is intended to use Nift as its build-time templating/dependency layer with ordinary HTML, CSS and JavaScript. Nift should compose the interface and track relationships; runtime application behaviour stays in normal browser code.</p>
+<p>The dashboard uses Nift as its build-time templating/dependency layer with ordinary HTML, CSS and JavaScript. Nift composes and tracks the frontend assets; runtime API and SPA behaviour stays in normal Go/browser code.</p>
 
 <h2 id="data-model">Data model</h2>
 <pre><code class="language-text">Organization

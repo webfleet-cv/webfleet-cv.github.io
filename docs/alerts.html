@@ -85,13 +85,13 @@
 09:47  incident closed</code></pre>
 
 <h2 id="policies">Alert policy</h2>
-<p>Policies should support sensible thresholds and quiet behaviour without turning into a generic automation language. The first goal is simple: notify the right person when a site is meaningfully unhealthy and again when it recovers.</p>
+<p>The current development implementation creates a default in-app alert policy. Delivery records are deduplicated around the incident lifecycle so one incident gets an open notification and a recovery notification rather than one delivery per check.</p>
 
 <h2 id="fleet-noise">Fleet-wide noise control</h2>
 <p>Large incidents can affect many related sites. Web Fleet should eventually help operators recognize correlated failures rather than flooding them with hundreds of identical alerts.</p>
 
 <h2 id="transports">Notification transports</h2>
-<p>The first transport will be chosen during implementation. Additional email/chat/webhook integrations should be added from user demand, with retry history and secret redaction built into the delivery model.</p>
+<p>The first transport is the in-app dashboard. Email, chat and webhook transports remain later integration work and will need retry history, explicit failure state and secret redaction.</p>
 </article>
 </main>
 <footer class="site-footer">
