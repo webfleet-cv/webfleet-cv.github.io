@@ -292,5 +292,6 @@ This repository is the authoritative Nift source for the public Web Fleet websit
 - The mobile menu is a full-page overlay below the header and must close when the viewport returns to tablet/desktop width.
 - Dark mode uses neutral charcoal/grey surfaces with restrained green accents. Do not introduce blue dark-mode surfaces or decorative gradients.
 - Code blocks use local syntax highlighting and a top-right copy icon. Do not add a heavyweight client framework solely for documentation behaviour.
-- Public copy must distinguish planned functionality from shipped functionality until Web Fleet reaches release checkpoints.
+- Public copy must distinguish implemented development functionality from publicly released functionality. CP1-CP10 exist in the application repository, but Web Fleet does not yet have a public release or supported installer.
+- The public visual identity should remain distinct from Nift/Trestle: use the current squared operations-ledger language, tighter mono labels and structured rows rather than drifting back to rounded generic card grids.
 - The source repository/branch intentionally ignores `/public/` because `public/` is its own generated Git repository. Keep both repositories present in the development workspace; commit generated output and direct image assets in the nested public repository, then commit source changes separately.

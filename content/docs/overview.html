@@ -2,13 +2,13 @@
 <h1>Product overview</h1>
 <p class="docs-lede">Web Fleet is a self-hosted control room for understanding websites. It observes the public web surface and combines health, history and optional traffic analytics.</p>
 
-<h2 id="questions">Questions Web Fleet should answer</h2>
+<h2 id="questions">Questions Web Fleet is designed to answer</h2>
 <ul>
   <li>Which websites need attention right now?</li>
   <li>Did availability or response time regress?</li>
   <li>Is a TLS certificate approaching expiry?</li>
   <li>Did DNS change unexpectedly?</li>
-  <li>Did a deployment introduce broken links or redirects?</li>
+  <li>Did a change introduce broken links or redirects?</li>
   <li>Which pages are being visited and where is traffic coming from?</li>
   <li>Can a freelancer or agency see the health of every client site without checking them individually?</li>
 </ul>
@@ -22,7 +22,7 @@
 </div>
 
 <h2 id="scale">Same product at different scale</h2>
-<p>A small installation can hide organizations and advanced controls. The underlying data model still allows agencies and larger teams to group sites and scope access later.</p>
+<p>The development dashboard already supports groups, search, group filtering and direct page-number navigation for larger inventories. Organizations and scoped multi-user access remain later enterprise checkpoints.</p>
 
 <pre><code class="language-text">Organization
 └── Group / client / team
@@ -34,11 +34,11 @@
         └── Deployment history</code></pre>
 
 <h2 id="status-model">Health model</h2>
-<p>The fleet dashboard will use a small set of meaningful health states instead of treating every observation as an incident. Exact thresholds remain implementation work, but the intended model is:</p>
+<p>The fleet dashboard uses a small set of meaningful health states instead of treating every observation as an incident. The current availability model is:</p>
 
 <table><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody>
 <tr><td>Healthy</td><td>No current observation requires attention.</td></tr>
-<tr><td>Warning</td><td>The site works, but something such as TLS expiry or a new regression needs review.</td></tr>
-<tr><td>Degraded</td><td>The site is available but repeatedly missing an important expectation.</td></tr>
+<tr><td>Warning</td><td>A first non-status failure occurred and needs another observation before Web Fleet calls the site down.</td></tr>
+<tr><td>Degraded</td><td>The site responded, but an HTTP status fell outside the configured expected range.</td></tr>
 <tr><td>Down</td><td>Availability checks establish a current outage.</td></tr>
 </tbody></table>

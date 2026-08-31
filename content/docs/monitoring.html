@@ -1,9 +1,9 @@
 <p class="eyebrow">Core features</p>
 <h1>Monitoring</h1>
-<p class="docs-lede">Monitoring is the first Web Fleet capability. The initial product will make a remote HTTP check trustworthy before layering broader website intelligence on top.</p>
+<p class="docs-lede">Monitoring is the first implemented Web Fleet capability. Remote HTTP checks, scheduling, health derivation and the SSRF boundary are in the development build now.</p>
 
 <h2 id="checks">HTTP checks</h2>
-<p>A monitor will define a target URL, interval, timeout and expected response. Check results should retain enough detail to distinguish common failure classes instead of reducing everything to "down".</p>
+<p>Each site currently receives an HTTP monitor with a target URL, timeout and expected 200-399 response range. Check results retain status, latency, final URL and failure class instead of reducing everything to "down".</p>
 
 <pre><code class="language-json">{
   "url": "https://example.com/health",
@@ -24,18 +24,22 @@
 </ul>
 
 <h2 id="incidents">From failures to incidents</h2>
-<p>One failed request should not necessarily create an incident. Web Fleet will use consecutive-failure and recovery rules so intermittent network noise does not become an alert storm.</p>
+<p>One failed request does not necessarily make a site down. The current health state machine uses consecutive failures and recovery transitions so intermittent network noise does not become an alert storm.</p>
 
 <pre><code class="language-text">healthy
-  ↓ failed check
-suspect
-  ↓ threshold reached
-incident open
-  ↓ successful recovery threshold
-recovered / incident closed</code></pre>
+  ↓ unexpected HTTP status
+degraded
+
+healthy
+  ↓ first transport/TLS/DNS-style failure
+warning
+  ↓ second consecutive failure
+down / incident open
+  ↓ successful check
+healthy / incident closed</code></pre>
 
 <h2 id="security">SSRF is part of the monitor design</h2>
-<p>Accepting arbitrary URLs creates a server-side request forgery boundary. Web Fleet must validate destinations, resolved addresses and redirect hops, and must defend against private/reserved targets and DNS rebinding. This is a first-version requirement, not post-release hardening.</p>
+<p>Accepting arbitrary URLs creates a server-side request forgery boundary. The monitor validates destinations, resolved addresses and redirect hops through a shared network guard that rejects private/reserved targets. TLS inspection and crawling reuse the same guarded dialing boundary instead of implementing their own weaker checks.</p>
 
 <h2 id="scheduling">Scheduling at fleet scale</h2>
-<p>Checks will use bounded concurrency and jitter. A fleet of 5,000 sites should not issue 5,000 requests on the same second merely because they share a one-minute interval.</p>
+<p>Checks use bounded concurrency and jitter. TLS and DNS observations are refreshed on lower cadences, and crawling runs on its own six-hour schedule, so expensive website-health work does not piggyback on every uptime check.</p>

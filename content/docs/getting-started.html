@@ -1,11 +1,11 @@
 <p class="eyebrow">Documentation</p>
 <h1>Getting started</h1>
-<p class="docs-lede">Web Fleet is in early development. These docs establish the intended operator experience and architecture while implementation catches up.</p>
+<p class="docs-lede">Web Fleet is in active development. The first ten implementation checkpoints now provide the monitoring foundation, while installation, performance history and analytics are still being prepared for public release.</p>
 
-<div class="notice"><strong>Current status:</strong> there is not yet a public Web Fleet release to install. Commands on this page marked as planned describe the target first-run experience rather than a shipped installer.</div>
+<div class="notice"><strong>Current status:</strong> CP1 through CP10 are implemented in the development repository, but there is not yet a public release or supported installer. The source build already includes first-admin setup, grouped site inventory, fleet health, incidents, TLS, DNS, headers/redirects and bounded link crawling.</div>
 
 <h2 id="goal">The five-minute goal</h2>
-<p>A normal self-hosted installation should eventually require three steps: install Web Fleet, create the first admin, and add a website URL. Public monitoring should begin without an agent or code change on the monitored website.</p>
+<p>The target self-hosted experience remains three steps: install Web Fleet, create the first admin, and add a website URL. The development build already follows the second and third steps, and public monitoring requires no agent or code change on the monitored website.</p>
 
 <pre><code class="language-shell"># Planned installation flow
 curl -fsSL https://web-fleet.github.io/install.sh | sh
@@ -18,7 +18,7 @@ URL:      https://example.com
 Interval: 60 seconds</code></pre>
 
 <h2 id="first-check">What happens after adding a site</h2>
-<p>The first implementation milestones will schedule HTTPS checks, record status and latency, classify failures, and derive a fleet-level health state. Later checkpoints add TLS, DNS, crawling, performance and optional analytics.</p>
+<p>Web Fleet schedules guarded HTTP checks, records status and latency, classifies failures, derives a fleet-level health state, tracks coherent incidents, observes TLS/DNS/header/redirect state, and runs a separate bounded crawler for page/link health. Performance history is the next checkpoint; optional analytics follows after that.</p>
 
 <h2 id="analytics">Adding analytics later</h2>
 <p>Analytics is deliberately separate from public monitoring. A GitHub Pages site, static Nift site or application hosted on another provider can send pageview events to one central Web Fleet server.</p>
