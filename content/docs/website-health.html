@@ -1,0 +1,25 @@
+<p class="eyebrow">Core features</p>
+<h1>Website health</h1>
+<p class="docs-lede">After reliable uptime checks, Web Fleet expands into the things that make a website healthy even when its server still returns 200.</p>
+
+<h2 id="tls">TLS</h2>
+<p>Observe certificate validity, hostname matching and expiry. Fleet-wide warnings should make expiring certificates visible before they become outages.</p>
+
+<h2 id="dns">DNS</h2>
+<p>Record relevant resolution results and surface meaningful changes. History matters: the useful question is often not just "what does this resolve to?" but "when did it change?"</p>
+
+<h2 id="links">Pages and links</h2>
+<p>A bounded crawler can discover pages and internal relationships, then report new broken links as regressions. External links need more conservative scheduling and rate limits than internal checks.</p>
+
+<pre><code class="language-text">site crawl
+├── /                  200
+├── /docs/             200
+│   ├── /docs/install  200
+│   └── /docs/api      404  ← new regression
+└── /download          301 → /releases</code></pre>
+
+<h2 id="headers">Headers and redirects</h2>
+<p>Web Fleet can observe response/security headers and redirect chains without pretending every optional header is universally mandatory. Expectations should remain configurable and contextual.</p>
+
+<h2 id="performance">Performance</h2>
+<p>Server-side timings and transfer behaviour come first because they can be measured cheaply and consistently. Browser performance checks may be added later, but Web Fleet should never label synthetic server timing as Core Web Vitals.</p>

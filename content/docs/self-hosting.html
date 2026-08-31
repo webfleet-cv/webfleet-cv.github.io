@@ -1,0 +1,30 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Self-hosting</h1>
+<p class="docs-lede">Web Fleet should remain comfortable on one ordinary VPS or home server even after larger deployment options exist.</p>
+
+<h2 id="default">Default deployment</h2>
+<pre><code class="language-text">┌─────────────────────────────┐
+│ webfleet                    │
+│  ├── HTTP/dashboard         │
+│  ├── monitor scheduler      │
+│  ├── crawler workers        │
+│  └── analytics ingestion    │
+└──────────────┬──────────────┘
+               │
+            SQLite</code></pre>
+
+<p>That integrated shape is the default. It should not be treated as a toy deployment.</p>
+
+<h2 id="database">SQLite and PostgreSQL</h2>
+<p>SQLite keeps installation and backup simple for small/medium deployments. PostgreSQL is planned for larger installations and enterprise requirements. Supporting PostgreSQL must not force it on everyone.</p>
+
+<h2 id="split">Optional process separation</h2>
+<pre><code class="language-shell"># Future large-deployment shape
+webfleet serve
+webfleet worker
+webfleet analytics-ingest</code></pre>
+
+<p>These commands would use the same product and configuration model. They are not intended to become a mandatory microservice topology.</p>
+
+<h2 id="recovery">Backups and upgrades</h2>
+<p>Before public preview, backup/restore, update and rollback will be treated as product features with tested recovery paths rather than left as operator folklore.</p>

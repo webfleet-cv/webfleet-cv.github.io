@@ -1,0 +1,23 @@
+<p class="eyebrow">Core features</p>
+<h1>Alerts and incidents</h1>
+<p class="docs-lede">The alerting model is designed around incidents and recovery, not one notification per failed request.</p>
+
+<h2 id="incident-model">Incident lifecycle</h2>
+<p>Repeated failures open an incident. Subsequent checks update its timeline. Recovery closes the same incident rather than creating an unrelated "up" event.</p>
+
+<pre><code class="language-text">09:42  first timeout
+09:43  second timeout
+09:43  incident opened
+09:44  TLS handshake failed
+09:46  successful check
+09:47  recovery confirmed
+09:47  incident closed</code></pre>
+
+<h2 id="policies">Alert policy</h2>
+<p>Policies should support sensible thresholds and quiet behaviour without turning into a generic automation language. The first goal is simple: notify the right person when a site is meaningfully unhealthy and again when it recovers.</p>
+
+<h2 id="fleet-noise">Fleet-wide noise control</h2>
+<p>Large incidents can affect many related sites. Web Fleet should eventually help operators recognize correlated failures rather than flooding them with hundreds of identical alerts.</p>
+
+<h2 id="transports">Notification transports</h2>
+<p>The first transport will be chosen during implementation. Additional email/chat/webhook integrations should be added from user demand, with retry history and secret redaction built into the delivery model.</p>

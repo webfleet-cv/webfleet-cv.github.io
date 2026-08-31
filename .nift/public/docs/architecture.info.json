@@ -1,0 +1,38 @@
+{
+  "name": "docs/architecture",
+  "title": "Architecture",
+  "template": "templates/docs.html",
+  "content": "content/docs/architecture.html",
+  "output": "public/docs/architecture.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/docs/architecture.html",
+    "templates/docs.html",
+    "templates/head.html",
+    "templates/partials/docs-nav.html",
+    "templates/partials/footer.html",
+    "templates/partials/header.html"
+  ],
+  "reqs": [
+    "public/assets/css/style.css",
+    "public/assets/images/web-fleet-mark.svg",
+    "public/assets/js/script.js",
+    "public/docs/alerts.html",
+    "public/docs/analytics.html",
+    "public/docs/api.html",
+    "public/docs/architecture.html",
+    "public/docs/getting-started.html",
+    "public/docs/monitoring.html",
+    "public/docs/overview.html",
+    "public/docs/roadmap.html",
+    "public/docs/self-hosting.html",
+    "public/docs/website-health.html",
+    "public/index.html"
+  ]
+}

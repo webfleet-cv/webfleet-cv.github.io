@@ -1,0 +1,42 @@
+<p class="eyebrow">Core features</p>
+<h1>Privacy-first analytics</h1>
+<p class="docs-lede">Analytics is planned as a first-class Web Fleet subsystem, but it is optional. Monitoring works without installing a tracker.</p>
+
+<h2 id="remote-sites">Works with remotely hosted sites</h2>
+<p>The Web Fleet server does not need to run beside the website. A static site on GitHub Pages, Netlify, Cloudflare Pages or ordinary object storage can send events from the visitor's browser to a central Web Fleet instance.</p>
+
+<pre><code class="language-text">GitHub Pages ─┐
+Netlify      ─┤
+VPS apps     ─┼──→ Web Fleet analytics endpoint
+Nift sites   ─┘             ↓
+                         dashboard</code></pre>
+
+<h2 id="tracker">Planned tracker</h2>
+<pre><code class="language-html">&lt;script
+  defer
+  src="https://fleet.example.com/tracker.js"
+  data-site="site_public_id"&gt;
+&lt;/script&gt;</code></pre>
+
+<p>A custom event API can remain deliberately small:</p>
+
+<pre><code class="language-javascript">webfleet.track("download", {
+  package: "linux-x86_64"
+});</code></pre>
+
+<h2 id="privacy">Default privacy posture</h2>
+<ul>
+  <li>No cookies required for normal pageview analytics.</li>
+  <li>No persistent raw IP storage by default.</li>
+  <li>No browser fingerprinting.</li>
+  <li>Country-level rather than precise-location analytics.</li>
+  <li>Query parameters stripped or allowlisted so secrets are not collected accidentally.</li>
+  <li>Configurable raw-event retention.</li>
+  <li>Transparent documentation of every collected field.</li>
+</ul>
+
+<h2 id="dashboard">The useful first dashboard</h2>
+<p>The goal is not hundreds of charts. A normal site should start with visitors, pageviews, top pages, sources, countries and client classes, then allow deeper filtering when needed.</p>
+
+<h2 id="not-product-analytics">Keep the boundary</h2>
+<p>Session replay, invasive fingerprinting, heatmaps and arbitrary user profiling are outside the initial product. Web Fleet should help operators understand websites without trying to reconstruct individual visitors.</p>

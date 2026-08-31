@@ -1,0 +1,41 @@
+<p class="eyebrow">Core features</p>
+<h1>Monitoring</h1>
+<p class="docs-lede">Monitoring is the first Web Fleet capability. The initial product will make a remote HTTP check trustworthy before layering broader website intelligence on top.</p>
+
+<h2 id="checks">HTTP checks</h2>
+<p>A monitor will define a target URL, interval, timeout and expected response. Check results should retain enough detail to distinguish common failure classes instead of reducing everything to "down".</p>
+
+<pre><code class="language-json">{
+  "url": "https://example.com/health",
+  "interval_seconds": 60,
+  "timeout_seconds": 10,
+  "expected_status": { "min": 200, "max": 399 },
+  "follow_redirects": true
+}</code></pre>
+
+<h2 id="failure-types">Useful failure classification</h2>
+<ul>
+  <li>DNS resolution failure</li>
+  <li>connection refused/unreachable</li>
+  <li>TLS handshake or certificate failure</li>
+  <li>request timeout</li>
+  <li>redirect policy failure</li>
+  <li>unexpected HTTP status</li>
+</ul>
+
+<h2 id="incidents">From failures to incidents</h2>
+<p>One failed request should not necessarily create an incident. Web Fleet will use consecutive-failure and recovery rules so intermittent network noise does not become an alert storm.</p>
+
+<pre><code class="language-text">healthy
+  ↓ failed check
+suspect
+  ↓ threshold reached
+incident open
+  ↓ successful recovery threshold
+recovered / incident closed</code></pre>
+
+<h2 id="security">SSRF is part of the monitor design</h2>
+<p>Accepting arbitrary URLs creates a server-side request forgery boundary. Web Fleet must validate destinations, resolved addresses and redirect hops, and must defend against private/reserved targets and DNS rebinding. This is a first-version requirement, not post-release hardening.</p>
+
+<h2 id="scheduling">Scheduling at fleet scale</h2>
+<p>Checks will use bounded concurrency and jitter. A fleet of 5,000 sites should not issue 5,000 requests on the same second merely because they share a one-minute interval.</p>

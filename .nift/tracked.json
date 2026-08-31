@@ -1,0 +1,17 @@
+{
+  "tracked": [
+    {"name":"/","title":"Home","template":"templates/template.html"},
+    {"name":"docs/getting-started","title":"Getting started","template":"templates/docs.html"},
+    {"name":"docs/overview","title":"Product overview","template":"templates/docs.html"},
+    {"name":"docs/monitoring","title":"Monitoring","template":"templates/docs.html"},
+    {"name":"docs/analytics","title":"Analytics","template":"templates/docs.html"},
+    {"name":"docs/website-health","title":"Website health","template":"templates/docs.html"},
+    {"name":"docs/alerts","title":"Alerts and incidents","template":"templates/docs.html"},
+    {"name":"docs/self-hosting","title":"Self-hosting","template":"templates/docs.html"},
+    {"name":"docs/architecture","title":"Architecture","template":"templates/docs.html"},
+    {"name":"docs/api","title":"API and integrations","template":"templates/docs.html"},
+    {"name":"docs/roadmap","title":"Roadmap","template":"templates/docs.html"},
+    {"name":"assets/css/style","title":"style","content-ext":".css","output-ext":".css"},
+    {"name":"assets/js/script","title":"script","content-ext":".js","output-ext":".js"}
+  ]
+}

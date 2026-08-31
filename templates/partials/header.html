@@ -1,0 +1,35 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="@pathto('/')" aria-label="Web Fleet home">
+      <img src="@pathto('public/assets/images/web-fleet-mark.svg')" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="@pathto('docs/getting-started')">Docs</a>
+      <a href="@pathto('docs/monitoring')">Monitoring</a>
+      <a href="@pathto('docs/analytics')">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="@pathto('/')">Home</a>
+      <a href="@pathto('docs/getting-started')">Getting started</a>
+      <a href="@pathto('docs/overview')">Product overview</a>
+      <a href="@pathto('docs/monitoring')">Monitoring</a>
+      <a href="@pathto('docs/analytics')">Analytics</a>
+      <a href="@pathto('docs/website-health')">Website health</a>
+      <a href="@pathto('docs/alerts')">Alerts and incidents</a>
+      <a href="@pathto('docs/self-hosting')">Self-hosting</a>
+      <a href="@pathto('docs/architecture')">Architecture</a>
+      <a href="@pathto('docs/api')">API and integrations</a>
+      <a href="@pathto('docs/roadmap')">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>

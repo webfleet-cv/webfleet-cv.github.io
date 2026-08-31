@@ -1,0 +1,43 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Architecture</h1>
+<p class="docs-lede">The architecture starts integrated and keeps subsystem boundaries explicit so scale does not require a rewrite.</p>
+
+<h2 id="components">Initial components</h2>
+<pre><code class="language-text">Browser dashboard
+       │
+       ▼
+┌───────────────────────────┐
+│ Web Fleet                 │
+│                           │
+│ API / auth                │
+│ fleet queries             │
+│ monitor scheduler         │
+│ remote check workers      │
+│ crawler                   │
+│ analytics ingest/rollups  │
+│ retention/maintenance     │
+└──────────────┬────────────┘
+               │
+           SQLite first
+        PostgreSQL at scale</code></pre>
+
+<h2 id="analytics-boundary">Analytics remains separable</h2>
+<p>Analytics can share Web Fleet's site/auth/storage foundations while avoiding dependencies on monitoring, crawling, TLS or DNS features. That leaves open a future standalone deployment profile without duplicating the whole product today.</p>
+
+<h2 id="frontend">Frontend</h2>
+<p>The dashboard is intended to use Nift as its build-time templating/dependency layer with ordinary HTML, CSS and JavaScript. Nift should compose the interface and track relationships; runtime application behaviour stays in normal browser code.</p>
+
+<h2 id="data-model">Data model</h2>
+<pre><code class="language-text">Organization
+├── users / memberships
+└── Groups
+    └── Sites
+        ├── Domains
+        ├── Monitors ── Check results ── Incidents
+        ├── Crawl/page/link observations
+        ├── TLS/DNS/header observations
+        ├── Analytics properties ── Events / rollups
+        └── Deployment events</code></pre>
+
+<h2 id="scale-rule">Scale rule</h2>
+<p>Measure before adding infrastructure. Queues, specialized analytics databases and HA coordination should be introduced only when a documented workload demonstrates that the simpler architecture is insufficient.</p>

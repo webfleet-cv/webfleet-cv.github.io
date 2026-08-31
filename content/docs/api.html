@@ -1,0 +1,24 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>API and integrations</h1>
+<p class="docs-lede">A documented API is planned, but it will follow the core product model rather than becoming a parallel configuration system.</p>
+
+<h2 id="api-shape">Planned API shape</h2>
+<pre><code class="language-shell"># Illustrative future request - not shipped yet
+curl -H "Authorization: Bearer $WEBFLEET_TOKEN" \
+  https://fleet.example.com/api/v1/sites</code></pre>
+
+<p>Tokens will be scoped, revocable and audited. A tracker/property token must never double as a dashboard API credential.</p>
+
+<h2 id="deployments">Deployment events</h2>
+<p>Web Fleet can become much more useful when it knows when a site was deployed. The initial integration direction is observation: GitHub, webhooks or APIs report a deployment event, then Web Fleet correlates that timestamp with uptime, performance, link and analytics changes.</p>
+
+<pre><code class="language-json">{
+  "site": "nift.dev",
+  "environment": "production",
+  "revision": "abc1234",
+  "status": "deployed",
+  "source": "github"
+}</code></pre>
+
+<h2 id="notifications">Notifications</h2>
+<p>Email, chat and webhook transports should use one delivery model with retry history, redacted secrets and explicit failure state. Integrations are not an excuse to hide delivery errors.</p>
