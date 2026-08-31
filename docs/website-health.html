@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Website health - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Core features</p>
+<h1>Website health</h1>
+<p class="docs-lede">After reliable uptime checks, Web Fleet expands into the things that make a website healthy even when its server still returns 200.</p>
+
+<h2 id="tls">TLS</h2>
+<p>Observe certificate validity, hostname matching and expiry. Fleet-wide warnings should make expiring certificates visible before they become outages.</p>
+
+<h2 id="dns">DNS</h2>
+<p>Record relevant resolution results and surface meaningful changes. History matters: the useful question is often not just "what does this resolve to?" but "when did it change?"</p>
+
+<h2 id="links">Pages and links</h2>
+<p>A bounded crawler can discover pages and internal relationships, then report new broken links as regressions. External links need more conservative scheduling and rate limits than internal checks.</p>
+
+<pre><code class="language-text">site crawl
+├── /                  200
+├── /docs/             200
+│   ├── /docs/install  200
+│   └── /docs/api      404  ← new regression
+└── /download          301 → /releases</code></pre>
+
+<h2 id="headers">Headers and redirects</h2>
+<p>Web Fleet can observe response/security headers and redirect chains without pretending every optional header is universally mandatory. Expectations should remain configurable and contextual.</p>
+
+<h2 id="performance">Performance</h2>
+<p>Server-side timings and transfer behaviour come first because they can be measured cheaply and consistently. Browser performance checks may be added later, but Web Fleet should never label synthetic server timing as Core Web Vitals.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

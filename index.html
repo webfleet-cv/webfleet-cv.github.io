@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Home - Web Fleet</title>
+<link rel="icon" href="assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./" aria-label="Web Fleet home">
+      <img src="assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="docs/getting-started.html">Docs</a>
+      <a href="docs/monitoring.html">Monitoring</a>
+      <a href="docs/analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="./">Home</a>
+      <a href="docs/getting-started.html">Getting started</a>
+      <a href="docs/overview.html">Product overview</a>
+      <a href="docs/monitoring.html">Monitoring</a>
+      <a href="docs/analytics.html">Analytics</a>
+      <a href="docs/website-health.html">Website health</a>
+      <a href="docs/alerts.html">Alerts and incidents</a>
+      <a href="docs/self-hosting.html">Self-hosting</a>
+      <a href="docs/architecture.html">Architecture</a>
+      <a href="docs/api.html">API and integrations</a>
+      <a href="docs/roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main>
+  <section class="hero section-pad">
+    <div class="hero-copy">
+      <p class="eyebrow">Self-hosted website intelligence</p>
+      <h1>See the health of your whole web fleet.</h1>
+      <p class="hero-lede">Web Fleet brings website monitoring, performance, TLS, DNS, link health and privacy-first analytics into one calm dashboard.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="docs/getting-started.html">Read the docs</a>
+        <a class="button secondary" href="https://github.com/web-fleet/webfleet">View on GitHub</a>
+      </div>
+      <p class="release-note">Early development. The public documentation describes the intended product and clearly marks features that are not shipped yet.</p>
+    </div>
+    <div class="dashboard-preview" aria-label="Illustrative Web Fleet dashboard preview">
+      <div class="preview-topline"><span>Fleet health</span><span class="preview-muted">12 sites</span></div>
+      <div class="fleet-summary">
+        <div><strong>11</strong><span>Healthy</span></div>
+        <div><strong>1</strong><span>Warning</span></div>
+        <div><strong>0</strong><span>Down</span></div>
+      </div>
+      <div class="attention-panel">
+        <span class="preview-label">Needs attention</span>
+        <div class="attention-row"><span class="status-dot warning"></span><span>TLS expires in 12 days</span><span>client-a.com</span></div>
+        <div class="attention-row"><span class="status-dot warning"></span><span>3 newly broken links</span><span>docs.example.com</span></div>
+      </div>
+      <div class="site-list">
+        <div><span><i class="status-dot healthy"></i>nift.dev</span><span>43 ms</span></div>
+        <div><span><i class="status-dot healthy"></i>trestle.cv</span><span>51 ms</span></div>
+        <div><span><i class="status-dot healthy"></i>example.com</span><span>67 ms</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad section-rule">
+    <div class="section-heading narrow">
+      <p class="eyebrow">One dashboard</p>
+      <h2>Websites are more than uptime.</h2>
+      <p>A site can return HTTP 200 and still be broken. Web Fleet is designed to understand the website itself, not just whether a server responds.</p>
+    </div>
+    <div class="feature-grid">
+      <article><h3>Availability</h3><p>HTTP status, latency, redirects, failures, recoveries and incident history.</p></article>
+      <article><h3>TLS and DNS</h3><p>Certificate expiry, hostname validity, DNS resolution and meaningful configuration changes.</p></article>
+      <article><h3>Pages and links</h3><p>Crawl sites, find broken internal links and surface regressions without turning every check into noise.</p></article>
+      <article><h3>Performance</h3><p>Track response behaviour over time and make regressions visible across the fleet.</p></article>
+      <article><h3>Analytics</h3><p>Optional, privacy-first traffic analytics for static sites, VPS-hosted apps and everything between.</p></article>
+      <article><h3>Incidents</h3><p>Turn repeated failures into coherent incidents with recovery history instead of alert storms.</p></article>
+    </div>
+  </section>
+
+  <section class="section-pad two-column section-rule">
+    <div>
+      <p class="eyebrow">Start simple</p>
+      <h2>One binary. One database. Add a URL.</h2>
+      <p>The default deployment is intentionally small: Web Fleet plus SQLite. Monitoring works without changing the site being monitored.</p>
+      <p>Analytics is opt-in. Add a lightweight tracker only to the sites where traffic insight is useful.</p>
+    </div>
+    <div class="code-card">
+      <pre><code class="language-shell"># Planned installation flow
+curl -fsSL https://web-fleet.github.io/install.sh | sh
+
+webfleet serve</code></pre>
+    </div>
+  </section>
+
+  <section class="section-pad section-rule">
+    <div class="section-heading narrow">
+      <p class="eyebrow">Scale without replacing it</p>
+      <h2>For one site, a client portfolio, or a large web estate.</h2>
+      <p>The small installation stays understandable. Larger deployments can add PostgreSQL, users, organizations, RBAC, SSO and separated workers without turning those into prerequisites for everyone.</p>
+    </div>
+    <div class="scale-row">
+      <div><strong>1</strong><span>personal site</span></div>
+      <div><strong>25</strong><span>freelancer/client sites</span></div>
+      <div><strong>250</strong><span>agency properties</span></div>
+      <div><strong>5,000+</strong><span>enterprise estate</span></div>
+    </div>
+  </section>
+
+  <section class="section-pad final-cta section-rule">
+    <p class="eyebrow">Open development</p>
+    <h2>Follow Web Fleet from the first check.</h2>
+    <p>The project is at the beginning. The roadmap starts with a trustworthy monitoring loop before analytics, enterprise features or integrations.</p>
+    <div class="hero-actions">
+      <a class="button primary" href="docs/roadmap.html">View the roadmap</a>
+      <a class="button secondary" href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="./">
+        <img src="assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="docs/getting-started.html">Docs</a>
+      <a href="docs/roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

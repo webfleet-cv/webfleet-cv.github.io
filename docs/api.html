@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>API and integrations - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>API and integrations</h1>
+<p class="docs-lede">A documented API is planned, but it will follow the core product model rather than becoming a parallel configuration system.</p>
+
+<h2 id="api-shape">Planned API shape</h2>
+<pre><code class="language-shell"># Illustrative future request - not shipped yet
+curl -H "Authorization: Bearer $WEBFLEET_TOKEN" \
+  https://fleet.example.com/api/v1/sites</code></pre>
+
+<p>Tokens will be scoped, revocable and audited. A tracker/property token must never double as a dashboard API credential.</p>
+
+<h2 id="deployments">Deployment events</h2>
+<p>Web Fleet can become much more useful when it knows when a site was deployed. The initial integration direction is observation: GitHub, webhooks or APIs report a deployment event, then Web Fleet correlates that timestamp with uptime, performance, link and analytics changes.</p>
+
+<pre><code class="language-json">{
+  "site": "nift.dev",
+  "environment": "production",
+  "revision": "abc1234",
+  "status": "deployed",
+  "source": "github"
+}</code></pre>
+
+<h2 id="notifications">Notifications</h2>
+<p>Email, chat and webhook transports should use one delivery model with retry history, redacted secrets and explicit failure state. Integrations are not an excuse to hide delivery errors.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

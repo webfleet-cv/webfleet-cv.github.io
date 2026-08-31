@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Product overview - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Documentation</p>
+<h1>Product overview</h1>
+<p class="docs-lede">Web Fleet is a self-hosted control room for understanding websites. It observes the public web surface and combines health, history and optional traffic analytics.</p>
+
+<h2 id="questions">Questions Web Fleet should answer</h2>
+<ul>
+  <li>Which websites need attention right now?</li>
+  <li>Did availability or response time regress?</li>
+  <li>Is a TLS certificate approaching expiry?</li>
+  <li>Did DNS change unexpectedly?</li>
+  <li>Did a deployment introduce broken links or redirects?</li>
+  <li>Which pages are being visited and where is traffic coming from?</li>
+  <li>Can a freelancer or agency see the health of every client site without checking them individually?</li>
+</ul>
+
+<h2 id="boundary">What Web Fleet is not</h2>
+<p>Web Fleet is not intended to become a hosting platform, CDN, DNS provider or host telemetry agent. Those responsibilities create very different operational and security models.</p>
+
+<div class="comparison-grid">
+  <div><span class="comparison-label">Web Fleet</span><strong>Looks at the website</strong><p>HTTP, pages, links, TLS, DNS, headers, traffic and website changes.</p></div>
+  <div><span class="comparison-label">Host monitoring</span><strong>Looks underneath it</strong><p>CPU, memory, disks, processes and machine/service telemetry.</p></div>
+</div>
+
+<h2 id="scale">Same product at different scale</h2>
+<p>A small installation can hide organizations and advanced controls. The underlying data model still allows agencies and larger teams to group sites and scope access later.</p>
+
+<pre><code class="language-text">Organization
+└── Group / client / team
+    └── Site
+        ├── Domains
+        ├── Monitors
+        ├── Analytics
+        ├── Incidents
+        └── Deployment history</code></pre>
+
+<h2 id="status-model">Health model</h2>
+<p>The fleet dashboard will use a small set of meaningful health states instead of treating every observation as an incident. Exact thresholds remain implementation work, but the intended model is:</p>
+
+<table><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Healthy</td><td>No current observation requires attention.</td></tr>
+<tr><td>Warning</td><td>The site works, but something such as TLS expiry or a new regression needs review.</td></tr>
+<tr><td>Degraded</td><td>The site is available but repeatedly missing an important expectation.</td></tr>
+<tr><td>Down</td><td>Availability checks establish a current outage.</td></tr>
+</tbody></table>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

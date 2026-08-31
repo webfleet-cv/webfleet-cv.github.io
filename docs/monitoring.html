@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Monitoring - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Core features</p>
+<h1>Monitoring</h1>
+<p class="docs-lede">Monitoring is the first Web Fleet capability. The initial product will make a remote HTTP check trustworthy before layering broader website intelligence on top.</p>
+
+<h2 id="checks">HTTP checks</h2>
+<p>A monitor will define a target URL, interval, timeout and expected response. Check results should retain enough detail to distinguish common failure classes instead of reducing everything to "down".</p>
+
+<pre><code class="language-json">{
+  "url": "https://example.com/health",
+  "interval_seconds": 60,
+  "timeout_seconds": 10,
+  "expected_status": { "min": 200, "max": 399 },
+  "follow_redirects": true
+}</code></pre>
+
+<h2 id="failure-types">Useful failure classification</h2>
+<ul>
+  <li>DNS resolution failure</li>
+  <li>connection refused/unreachable</li>
+  <li>TLS handshake or certificate failure</li>
+  <li>request timeout</li>
+  <li>redirect policy failure</li>
+  <li>unexpected HTTP status</li>
+</ul>
+
+<h2 id="incidents">From failures to incidents</h2>
+<p>One failed request should not necessarily create an incident. Web Fleet will use consecutive-failure and recovery rules so intermittent network noise does not become an alert storm.</p>
+
+<pre><code class="language-text">healthy
+  ↓ failed check
+suspect
+  ↓ threshold reached
+incident open
+  ↓ successful recovery threshold
+recovered / incident closed</code></pre>
+
+<h2 id="security">SSRF is part of the monitor design</h2>
+<p>Accepting arbitrary URLs creates a server-side request forgery boundary. Web Fleet must validate destinations, resolved addresses and redirect hops, and must defend against private/reserved targets and DNS rebinding. This is a first-version requirement, not post-release hardening.</p>
+
+<h2 id="scheduling">Scheduling at fleet scale</h2>
+<p>Checks will use bounded concurrency and jitter. A fleet of 5,000 sites should not issue 5,000 requests on the same second merely because they share a one-minute interval.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

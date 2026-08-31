@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Getting started - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Documentation</p>
+<h1>Getting started</h1>
+<p class="docs-lede">Web Fleet is in early development. These docs establish the intended operator experience and architecture while implementation catches up.</p>
+
+<div class="notice"><strong>Current status:</strong> there is not yet a public Web Fleet release to install. Commands on this page marked as planned describe the target first-run experience rather than a shipped installer.</div>
+
+<h2 id="goal">The five-minute goal</h2>
+<p>A normal self-hosted installation should eventually require three steps: install Web Fleet, create the first admin, and add a website URL. Public monitoring should begin without an agent or code change on the monitored website.</p>
+
+<pre><code class="language-shell"># Planned installation flow
+curl -fsSL https://web-fleet.github.io/install.sh | sh
+webfleet serve</code></pre>
+
+<p>Open the dashboard, complete first-admin setup, then add a site such as:</p>
+
+<pre><code class="language-text">Name:     Example
+URL:      https://example.com
+Interval: 60 seconds</code></pre>
+
+<h2 id="first-check">What happens after adding a site</h2>
+<p>The first implementation milestones will schedule HTTPS checks, record status and latency, classify failures, and derive a fleet-level health state. Later checkpoints add TLS, DNS, crawling, performance and optional analytics.</p>
+
+<h2 id="analytics">Adding analytics later</h2>
+<p>Analytics is deliberately separate from public monitoring. A GitHub Pages site, static Nift site or application hosted on another provider can send pageview events to one central Web Fleet server.</p>
+
+<pre><code class="language-html">&lt;script
+  defer
+  src="https://fleet.example.com/tracker.js"
+  data-site="site_public_id"&gt;
+&lt;/script&gt;</code></pre>
+
+<p>The planned default tracker does not require cookies or persistent visitor profiles.</p>
+
+<h2 id="next">Next reading</h2>
+<p>Read <a href="./overview.html">Product overview</a> for the product boundary, or <a href="./architecture.html">Architecture</a> for the implementation direction.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

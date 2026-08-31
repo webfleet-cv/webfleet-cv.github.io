@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Roadmap - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Roadmap</h1>
+<p class="docs-lede">Web Fleet is being built from the monitoring foundation outward. The roadmap deliberately avoids starting with analytics dashboards or enterprise administration before remote checks are trustworthy.</p>
+
+<div class="roadmap-list">
+  <section><span>Phase 1</span><h2>Prove the monitoring loop</h2><p>Application foundation, admin authentication, sites, HTTP checks, scheduler, fleet health, incidents and first alerts.</p></section>
+  <section><span>Phase 2</span><h2>Understand websites</h2><p>TLS, DNS, headers, redirects, crawling, link health and performance regression history.</p></section>
+  <section><span>Phase 3</span><h2>Privacy-first analytics</h2><p>Optional tracker, ingestion, retention, rollups, dashboards, custom events and goals.</p></section>
+  <section><span>Phase 4</span><h2>Self-hosting reliability</h2><p>Backup/restore, service install, updates, rollback, PostgreSQL and retention/maintenance.</p></section>
+  <section><span>Phase 5</span><h2>Agency and enterprise scale</h2><p>Users, organizations, RBAC, API tokens, OIDC and optional worker/process separation.</p></section>
+  <section><span>Phase 6</span><h2>Integrations and public preview</h2><p>Deployment observations, notifications, accessibility, large-fleet UX, hardening and release readiness.</p></section>
+</div>
+
+<h2 id="not-now">Explicitly not first</h2>
+<p>Website hosting, DNS management, CDN/proxy services, deployment execution, session replay, heatmaps, visitor fingerprinting and host telemetry are intentionally outside the first product.</p>
+
+<p>The application repository contains the detailed living checkpoint plan. Public documentation will be updated as checkpoints move from planned to implemented.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

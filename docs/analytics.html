@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Analytics - Web Fleet</title>
+<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Core features</p>
+<h1>Privacy-first analytics</h1>
+<p class="docs-lede">Analytics is planned as a first-class Web Fleet subsystem, but it is optional. Monitoring works without installing a tracker.</p>
+
+<h2 id="remote-sites">Works with remotely hosted sites</h2>
+<p>The Web Fleet server does not need to run beside the website. A static site on GitHub Pages, Netlify, Cloudflare Pages or ordinary object storage can send events from the visitor's browser to a central Web Fleet instance.</p>
+
+<pre><code class="language-text">GitHub Pages ─┐
+Netlify      ─┤
+VPS apps     ─┼──→ Web Fleet analytics endpoint
+Nift sites   ─┘             ↓
+                         dashboard</code></pre>
+
+<h2 id="tracker">Planned tracker</h2>
+<pre><code class="language-html">&lt;script
+  defer
+  src="https://fleet.example.com/tracker.js"
+  data-site="site_public_id"&gt;
+&lt;/script&gt;</code></pre>
+
+<p>A custom event API can remain deliberately small:</p>
+
+<pre><code class="language-javascript">webfleet.track("download", {
+  package: "linux-x86_64"
+});</code></pre>
+
+<h2 id="privacy">Default privacy posture</h2>
+<ul>
+  <li>No cookies required for normal pageview analytics.</li>
+  <li>No persistent raw IP storage by default.</li>
+  <li>No browser fingerprinting.</li>
+  <li>Country-level rather than precise-location analytics.</li>
+  <li>Query parameters stripped or allowlisted so secrets are not collected accidentally.</li>
+  <li>Configurable raw-event retention.</li>
+  <li>Transparent documentation of every collected field.</li>
+</ul>
+
+<h2 id="dashboard">The useful first dashboard</h2>
+<p>The goal is not hundreds of charts. A normal site should start with visitors, pageviews, top pages, sources, countries and client classes, then allow deeper filtering when needed.</p>
+
+<h2 id="not-product-analytics">Keep the boundary</h2>
+<p>Session replay, invasive fingerprinting, heatmaps and arbitrary user profiling are outside the initial product. Web Fleet should help operators understand websites without trying to reconstruct individual visitors.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/web-fleet/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
