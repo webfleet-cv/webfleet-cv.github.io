@@ -1,7 +1,7 @@
 <p class="eyebrow">Operate Web Fleet</p>
 <h1>First-run setup</h1>
 <p class="docs-lede">Database choice comes before the first administrator. SQLite remains the simplest default; PostgreSQL is available for operators who want an external database.</p>
-<div class="notice"><strong>Development status:</strong> the PostgreSQL storage path exists, but the browser setup flow below is a required roadmap gate before public preview.</div>
+<div class="notice"><strong>Development status:</strong> the PostgreSQL storage path and browser setup flow are implemented in development; live PostgreSQL parity remains a CP30 battle-hardening gate.</div>
 <h2 id="database-choice">Choose the database first</h2>
 <p>The ordinary setup flow will present SQLite and PostgreSQL before asking for an administrator email or password. This avoids creating identity data in one database and then casually switching providers underneath it.</p>
 <pre><code class="language-text">Database
