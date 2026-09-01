@@ -1,0 +1,24 @@
+<p class="eyebrow">Deployment</p>
+<h1>nginx</h1>
+<p class="docs-lede">Use nginx as the HTTPS reverse proxy while Web Fleet listens privately on loopback.</p>
+<h2 id="config">Reverse proxy</h2>
+<pre><code class="language-nginx">server {
+    listen 443 ssl;
+    server_name webfleet.company.com;
+
+    ssl_certificate     /etc/letsencrypt/live/webfleet.company.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/webfleet.company.com/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8090;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}</code></pre>
+<h2 id="validate">Validate</h2>
+<pre><code class="language-shell">sudo nginx -t
+sudo systemctl reload nginx
+curl -I https://webfleet.company.com/healthz</code></pre>
+<p>Only trust forwarding headers from infrastructure you control. Web Fleet's public-preview hardening must explicitly review proxy/header trust boundaries.</p>

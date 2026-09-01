@@ -1,9 +1,9 @@
 {
-  "name": "docs/roadmap",
-  "title": "Roadmap",
+  "name": "docs/caddy",
+  "title": "Caddy",
   "template": "templates/docs.html",
-  "content": "content/docs/roadmap.html",
-  "output": "public/docs/roadmap.html",
+  "content": "content/docs/caddy.html",
+  "output": "public/docs/caddy.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/roadmap.html",
+    "content/docs/caddy.html",
     "templates/docs.html",
     "templates/head.html",
     "templates/partials/docs-nav.html",

@@ -1,0 +1,17 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Company subdomains</h1>
+<p class="docs-lede">For organizations running several self-hosted tools, a dedicated subdomain per service is usually the cleanest deployment model.</p>
+<h2 id="pattern">Recommended pattern</h2>
+<pre><code class="language-text">company.com
+├── webfleet.company.com   → Web Fleet
+├── trestle.company.com    → Trestle
+├── cortex.company.com     → Cortex
+└── watchpost.company.com  → Watchpost</code></pre>
+<p>These products remain independent. They do not need to share a server, database or authentication system merely because they use sibling subdomains.</p>
+<h2 id="dns">DNS</h2>
+<p>Create an <code>A</code>/<code>AAAA</code> record for <code>webfleet.company.com</code> pointing to the reverse proxy, or a suitable <code>CNAME</code> where your DNS/provider architecture supports it.</p>
+<pre><code class="language-text">webfleet.company.com.  A  203.0.113.20</code></pre>
+<h2 id="proxy">Reverse proxy</h2>
+<p>Terminate HTTPS at Caddy, nginx or another trusted reverse proxy and forward Web Fleet to its private listen address such as <code>127.0.0.1:8090</code>. Keep the public hostname stable because analytics properties validate their configured website origins.</p>
+<h2 id="analytics">Analytics across domains</h2>
+<p>A website such as <code>www.company.com</code> can send optional analytics events to <code>webfleet.company.com</code>. Web Fleet validates the analytics property and allowed website origin; the tracker does not require Web Fleet to be hosted on the monitored site's machine.</p>

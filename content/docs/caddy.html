@@ -1,0 +1,14 @@
+<p class="eyebrow">Deployment</p>
+<h1>Caddy</h1>
+<p class="docs-lede">Caddy is a straightforward way to give Web Fleet a company subdomain with automatic HTTPS.</p>
+<h2 id="dns">1. Point DNS at the server</h2>
+<pre><code class="language-text">webfleet.company.com → your server IP</code></pre>
+<h2 id="config">2. Proxy Web Fleet</h2>
+<pre><code class="language-text">webfleet.company.com {
+    reverse_proxy 127.0.0.1:8090
+}</code></pre>
+<p>Keep Web Fleet itself on loopback when Caddy is the public entry point. Caddy obtains and renews the public TLS certificate.</p>
+<h2 id="reload">3. Validate and reload</h2>
+<pre><code class="language-shell">sudo caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl reload caddy
+curl -I https://webfleet.company.com/healthz</code></pre>

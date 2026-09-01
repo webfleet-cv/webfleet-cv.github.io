@@ -17,7 +17,7 @@ Analytics ingestion is implemented in development and remains optional.</code></
 <p>That integrated shape is the default. It should not be treated as a toy deployment.</p>
 
 <h2 id="database">SQLite and PostgreSQL</h2>
-<p>SQLite keeps installation and backup simple for small/medium deployments. A PostgreSQL storage path is implemented in development for larger installations and enterprise requirements. Supporting PostgreSQL must not force it on everyone.</p>
+<p>SQLite keeps installation and backup simple for small/medium deployments. A PostgreSQL storage path is implemented in development for larger installations and enterprise requirements. The remaining product gate is the first-run database chooser and live PostgreSQL parity testing. See <a href="@pathto('docs/first-run')">First-run setup</a>.</p>
 
 <h2 id="split">Optional process separation</h2>
 <pre><code class="language-shell"># Future large-deployment shape
@@ -28,4 +28,4 @@ webfleet analytics-ingest</code></pre>
 <p>These commands would use the same product and configuration model. They are not intended to become a mandatory microservice topology.</p>
 
 <h2 id="recovery">Backups and upgrades</h2>
-<p>Before public preview, backup/restore, update and rollback will be treated as product features with tested recovery paths rather than left as operator folklore.</p>
+<p>Backup/restore and Linux service update/rollback paths are implemented in development and remain public-preview hardening gates. See <a href="@pathto('docs/hosting')">Hosting and deployment</a> for the intended server shape.</p>

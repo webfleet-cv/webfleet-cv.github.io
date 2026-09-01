@@ -1,0 +1,36 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Hosting and deployment</h1>
+<p class="docs-lede">Web Fleet is intended to run as one self-hosted service behind HTTPS on an ordinary VPS, home server or company infrastructure.</p>
+<div class="notice"><strong>Development status:</strong> service lifecycle and database foundations exist in development. Public release artifacts and the supported installer are still pending.</div>
+<h2 id="shape">Recommended deployment shape</h2>
+<pre><code class="language-text">Internet
+   │
+   ▼
+webfleet.company.com
+   │ HTTPS
+   ▼
+Caddy / nginx
+   │ 127.0.0.1:8090
+   ▼
+Web Fleet
+   ├── monitoring
+   ├── optional analytics ingestion
+   ├── manual Audit worker
+   └── SQLite or PostgreSQL</code></pre>
+<p>Keep the application bound to loopback when a reverse proxy terminates public HTTPS. Expose only ports 80/443 from the proxy unless your network design intentionally differs.</p>
+<h2 id="service">Linux service</h2>
+<p>The development CLI includes a systemd service lifecycle. The eventual release documentation will pair this with verified release artifacts rather than asking operators to copy arbitrary binaries into place.</p>
+<pre><code class="language-shell">sudo webfleet service install
+systemctl status webfleet
+
+# verified artifact update
+sudo webfleet service update ./webfleet SHA256
+
+# restore the previous binary
+sudo webfleet service rollback</code></pre>
+<h2 id="database">Database placement</h2>
+<p>SQLite is appropriate for the simplest single-node deployment. PostgreSQL can run on the same private network or as a managed/private database. Do not expose PostgreSQL publicly merely for Web Fleet.</p>
+<h2 id="audit-runtime">Browser Audit</h2>
+<p>Normal monitoring does not require Chromium. Install a supported browser runtime only on machines that will execute manually requested <strong>Audit</strong> jobs. Larger installations may later separate that workload from normal availability monitoring.</p>
+<h2 id="recovery">Backups and recovery</h2>
+<p>Back up Web Fleet before upgrades and test restoration. The development CLI supports SQLite backup/restore; public-preview documentation will include a complete recovery rehearsal.</p>

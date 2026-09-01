@@ -1,0 +1,33 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>First-run setup</h1>
+<p class="docs-lede">Database choice comes before the first administrator. SQLite remains the simplest default; PostgreSQL is available for operators who want an external database.</p>
+<div class="notice"><strong>Development status:</strong> the PostgreSQL storage path exists, but the browser setup flow below is a required roadmap gate before public preview.</div>
+<h2 id="database-choice">Choose the database first</h2>
+<p>The ordinary setup flow will present SQLite and PostgreSQL before asking for an administrator email or password. This avoids creating identity data in one database and then casually switching providers underneath it.</p>
+<pre><code class="language-text">Database
+
+● SQLite
+  Simplest setup. Web Fleet owns one local database file.
+
+○ PostgreSQL
+  Use an existing PostgreSQL server.
+
+[ Continue with SQLite ]</code></pre>
+<h2 id="postgres">PostgreSQL</h2>
+<p>Selecting PostgreSQL reveals the connection URL and a connection test. The action remains visibly disabled while the URL is empty.</p>
+<pre><code class="language-text">PostgreSQL URL
+postgres://webfleet:password@db.internal:5432/webfleet
+
+[ Test and use PostgreSQL ]</code></pre>
+<p>Web Fleet validates the real connection before accepting it. If the provider change requires a process restart, setup stops and displays an explicit restart-required state rather than exposing the administrator form prematurely.</p>
+<pre><code class="language-text">Restart required
+
+PostgreSQL is configured.
+
+1. Stop and start Web Fleet.
+2. Reload this page.
+3. Create the administrator account.</code></pre>
+<h2 id="administrator">Create the administrator</h2>
+<p>After restart the page must explicitly say <strong>Create the administrator account</strong>. It is not a login screen: no administrator exists yet.</p>
+<h2 id="noninteractive">Server-managed configuration</h2>
+<p>Automated deployments can provide <code>WEBFLEET_DATABASE_URL</code> before first launch. The browser flow remains the default experience for ordinary self-hosters.</p>

@@ -27,11 +27,17 @@
     "public/docs/analytics.html",
     "public/docs/api.html",
     "public/docs/architecture.html",
+    "public/docs/caddy.html",
+    "public/docs/deployment-troubleshooting.html",
+    "public/docs/first-run.html",
     "public/docs/getting-started.html",
+    "public/docs/hosting.html",
     "public/docs/monitoring.html",
+    "public/docs/nginx.html",
     "public/docs/overview.html",
     "public/docs/roadmap.html",
     "public/docs/self-hosting.html",
+    "public/docs/subdomains.html",
     "public/docs/website-health.html",
     "public/index.html"
   ]

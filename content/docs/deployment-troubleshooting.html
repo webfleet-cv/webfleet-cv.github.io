@@ -1,0 +1,18 @@
+<p class="eyebrow">Deployment</p>
+<h1>Deployment troubleshooting</h1>
+<p class="docs-lede">Work from the process outward: database, Web Fleet health endpoint, private proxy connection, DNS, then public TLS.</p>
+<h2 id="502">502 or 504 from the proxy</h2>
+<pre><code class="language-shell">systemctl status webfleet
+curl -i http://127.0.0.1:8090/healthz
+journalctl -u webfleet --since "15 minutes ago"</code></pre>
+<p>If the private health endpoint fails, fix Web Fleet or its database before changing Caddy/nginx. If it succeeds, inspect the proxy upstream address and service permissions.</p>
+<h2 id="dns">DNS does not resolve</h2>
+<pre><code class="language-shell">dig webfleet.company.com A
+dig webfleet.company.com AAAA</code></pre>
+<p>Confirm the record points at the public reverse proxy and allow for DNS TTL/propagation.</p>
+<h2 id="tls">TLS certificate problems</h2>
+<p>Confirm ports 80/443 reach the proxy, the hostname resolves to that proxy and the certificate configuration names the exact Web Fleet hostname.</p>
+<h2 id="postgres">PostgreSQL connection failures</h2>
+<p>Test network reachability from the Web Fleet host, database credentials, database existence and TLS requirements. The first-run setup flow will test the URL before accepting PostgreSQL.</p>
+<h2 id="permissions">Service permissions</h2>
+<p>The Web Fleet service user needs access to its configured data directory but should not run with broad filesystem privileges. SQLite deployments also require write access to the directory containing the database and WAL files.</p>
