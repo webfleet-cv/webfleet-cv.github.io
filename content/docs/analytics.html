@@ -14,11 +14,13 @@ Nift sites   ─┘             ↓
 <h2 id="tracker">Tracker</h2>
 <pre><code class="language-html">&lt;script
   defer
-  src="https://fleet.example.com/tracker.js"
-  data-site="site_public_id"&gt;
+  src="https://fleet.example.com/wf.js"
+  data-webfleet="YOUR_PROPERTY_KEY"&gt;
 &lt;/script&gt;</code></pre>
 
-<p>A custom event API can remain deliberately small:</p>
+<p>The tracker is served at <code>/wf.js</code> on the Web Fleet host. The <code>data-webfleet</code> value is the analytics property key shown when an operator enables analytics for a site. Pageviews are then sent to <code>/api/analytics/event</code> on the same host, so a site hosted on GitHub Pages can track through a central Web Fleet instance.</p>
+
+<p>A custom event API remains deliberately small:</p>
 
 <pre><code class="language-javascript">webfleet.track("download", {
   package: "linux-x86_64"
@@ -27,12 +29,12 @@ Nift sites   ─┘             ↓
 <h2 id="privacy">Default privacy posture</h2>
 <ul>
   <li>No cookies required for normal pageview analytics.</li>
-  <li>No persistent raw IP storage by default.</li>
+  <li>No persistent raw IP storage by default; the visitor identity is a salted per-day hash rather than a stored address.</li>
   <li>No browser fingerprinting.</li>
-  <li>Country-level rather than precise-location analytics.</li>
-  <li>Query parameters stripped or allowlisted so secrets are not collected accidentally.</li>
+  <li>Query strings are not reported by the default tracker (only the pathname is sent), so secret-bearing URLs are not collected.</li>
+  <li>Country/geolocation data is not collected yet. The dashboard reports visitors, pageviews, top pages and sources.</li>
   <li>Configurable raw-event retention.</li>
-  <li>Transparent documentation of every collected field.</li>
+  <li>Transparent documentation of every collected field remains a goal; the collected fields are currently the property key, event kind, pathname, referrer, client class and a salted visitor hash.</li>
 </ul>
 
 <h2 id="dashboard">The useful first dashboard</h2>
