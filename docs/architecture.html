@@ -118,6 +118,9 @@
 
 <h2 id="scale-rule">Scale rule</h2>
 <p>Measure before adding infrastructure. Queues, specialized analytics databases and HA coordination should be introduced only when a documented workload demonstrates that the simpler architecture is insufficient.</p>
+<h2 id="process-roles">Optional process roles</h2><p>The default remains one integrated process. Larger deployments can separate responsibilities without changing the product model.</p><pre><code class="language-shell">webfleet serve
+webfleet worker
+webfleet analytics-ingest</code></pre><p>Web Fleet deliberately does not require Redis, Kafka or Kubernetes. The current CP25 scale decision is to add distributed infrastructure only after repeatable measurements justify it.</p>
 </article>
 </main>
 <footer class="site-footer">
