@@ -52,7 +52,7 @@
       <div class="hero-kicker"><span class="live-pip"></span><span>Development preview</span><span>CP1-CP10 implemented</span></div>
       <p class="eyebrow">Website monitoring for a whole fleet</p>
       <h1>Know which site needs you.</h1>
-      <p class="hero-lede">Web Fleet watches availability, incidents, TLS, DNS, redirects, headers, pages and links across every website you care about. Performance history and Site Audits come next, followed by privacy-first analytics.</p>
+      <p class="hero-lede">Web Fleet watches availability, incidents, TLS, DNS, redirects, headers, pages and links across every website you care about. Performance history, manual browser Audit and privacy-first analytics are now implemented in development.</p>
       <div class="hero-actions">
         <a class="button primary" href="docs/getting-started.html">Read the docs</a>
         <a class="button secondary" href="https://github.com/web-fleet/webfleet">Source on GitHub</a>
@@ -85,7 +85,7 @@
     <div><span>01</span><strong>Remote checks</strong><small>Implemented</small></div>
     <div><span>02</span><strong>Fleet health</strong><small>Implemented</small></div>
     <div><span>03</span><strong>Website health</strong><small>Implemented</small></div>
-    <div><span>04</span><strong>Site audits</strong><small>Planned CP12</small></div>
+    <div><span>04</span><strong>Site audits</strong><small>Manual · history opt-in</small></div>
   </section>
 
   <section class="section-pad section-rule capability-section">
@@ -100,7 +100,7 @@
       <article><span>03</span><h3>TLS + DNS</h3><p>Certificate validity and expiry plus A, AAAA and CNAME observations with meaningful change history.</p></article>
       <article><span>04</span><h3>HTTP surface</h3><p>Redirect chains and configurable security/header expectations, recorded independently from uptime state.</p></article>
       <article><span>05</span><h3>Pages + links</h3><p>Bounded, robots-aware crawling with sitemap discovery, broken links and fleet-level regressions.</p></article>
-      <article><span>06</span><h3>Site Audits</h3><p>Optional browser-rendered quality audits will track performance, accessibility, best-practice and discoverability regressions before the analytics phase.</p></article>
+      <article><span>06</span><h3>Audit</h3><p>Optional browser-rendered quality audits will track performance, accessibility, best-practice and discoverability regressions before the analytics phase.</p></article>
     </div>
   </section>
 
@@ -130,7 +130,7 @@ go run ./cmd/webfleet</code></pre>
 
   <section class="section-pad final-cta section-rule">
     <div><p class="eyebrow">Open development</p><h2>The monitoring foundation is alive.</h2></div>
-    <div><p>CP1 through CP10 are implemented. Performance history is next, then Site Audits, followed by the optional privacy-first analytics pipeline.</p><div class="hero-actions"><a class="button primary" href="docs/roadmap.html">Follow the roadmap</a><a class="button secondary" href="docs/monitoring.html">See monitoring</a></div></div>
+    <div><p>CP1 through CP20 are implemented in development. The next phase focuses on multi-user, agency and enterprise-scale controls.</p><div class="hero-actions"><a class="button primary" href="docs/roadmap.html">Follow the roadmap</a><a class="button secondary" href="docs/monitoring.html">See monitoring</a></div></div>
   </section>
 </main>
 <footer class="site-footer">
