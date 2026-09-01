@@ -84,9 +84,10 @@
 <h2 id="goal">The five-minute goal</h2>
 <p>The target self-hosted experience is: install Web Fleet, choose SQLite or PostgreSQL, create the first administrator, then add a website URL. The development build already follows the second and third steps, and public monitoring requires no agent or code change on the monitored website.</p>
 
-<pre><code class="language-shell"># Planned installation flow
-curl -fsSL https://web-fleet.github.io/install.sh | sh
+<pre><code class="language-shell"># Planned installation flow - a public installer does not exist yet
 webfleet serve</code></pre>
+
+<p>There is no public installer yet. The planned <code>install.sh</code> and release archives arrive with the CP31 release gate; until then Web Fleet runs from a development build.</p>
 
 <p>Open the dashboard, choose the database before first-admin setup, then add a site such as:</p>
 
@@ -102,9 +103,11 @@ Interval: 60 seconds</code></pre>
 
 <pre><code class="language-html">&lt;script
   defer
-  src="https://fleet.example.com/tracker.js"
-  data-site="site_public_id"&gt;
+  src="https://fleet.example.com/wf.js"
+  data-webfleet="YOUR_PROPERTY_KEY"&gt;
 &lt;/script&gt;</code></pre>
+
+<p>The tracker is served at <code>/wf.js</code> on the Web Fleet host; the <code>data-webfleet</code> value is the analytics property key shown when analytics is enabled for a site in the dashboard.</p>
 
 <p>The planned default tracker does not require cookies or persistent visitor profiles.</p>
 
