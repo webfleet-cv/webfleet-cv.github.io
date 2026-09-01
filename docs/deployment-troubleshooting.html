@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
 <meta name="theme-color" content="#171817">
-<title>Roadmap - Web Fleet</title>
+<title>Deployment troubleshooting - Web Fleet</title>
 <link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/css/style.css">
 <script src="../assets/js/script.js" defer></script>
@@ -75,23 +75,24 @@
   </div>
 </aside>
 <article class="docs-content">
-<p class="eyebrow">Operate Web Fleet</p>
-<h1>Roadmap</h1>
-<p class="docs-lede">Web Fleet is being built from the monitoring foundation outward. CP1 through CP20 are implemented in development: performance history, manual browser Audit, privacy-first analytics, backup/restore, Linux service lifecycle, PostgreSQL support and retention/maintenance now sit on top of the monitoring foundation.</p>
-
-<div class="roadmap-list">
-  <section><span>Phase 1 · done</span><h2>Prove the monitoring loop</h2><p>Application foundation, admin authentication, grouped site inventory, HTTP checks, scheduler, fleet health, incidents and in-app alerts.</p></section>
-  <section><span>Phase 2 · implemented in development</span><h2>Understand websites</h2><p>TLS, DNS, headers, redirects, crawling, link health and server-side performance history are implemented. Audit is manual by default, and audit history is opt-in.</p></section>
-  <section><span>Phase 3 · implemented in development</span><h2>Privacy-first analytics</h2><p>Optional tracker, ingestion, retention, rollups, dashboards, custom events and goals.</p></section>
-  <section><span>Phase 4 · implemented in development</span><h2>Self-hosting reliability</h2><p>Backup/restore, service install, updates, rollback, PostgreSQL and retention/maintenance.</p></section>
-  <section><span>Phase 5</span><h2>Agency and enterprise scale</h2><p>Users, organizations, RBAC, API tokens, OIDC and optional worker/process separation.</p></section>
-  <section><span>Phase 6</span><h2>Integrations and public preview</h2><p>Deployment observations, notifications, accessibility, large-fleet UX, hardening and release readiness.</p></section>
-</div>
-
-<h2 id="not-now">Explicitly not first</h2>
-<p>Website hosting, DNS management, CDN/proxy services, deployment execution, session replay, heatmaps, visitor fingerprinting and host telemetry are intentionally outside the first product.</p>
-
-<p>The application repository contains the detailed living checkpoint plan. Public documentation will be updated as checkpoints move from planned to implemented.</p>
+<p class="eyebrow">Deployment</p>
+<h1>Deployment troubleshooting</h1>
+<p class="docs-lede">Work from the process outward: database, Web Fleet health endpoint, private proxy connection, DNS, then public TLS.</p>
+<h2 id="502">502 or 504 from the proxy</h2>
+<pre><code class="language-shell">systemctl status webfleet
+curl -i http://127.0.0.1:8090/healthz
+journalctl -u webfleet --since "15 minutes ago"</code></pre>
+<p>If the private health endpoint fails, fix Web Fleet or its database before changing Caddy/nginx. If it succeeds, inspect the proxy upstream address and service permissions.</p>
+<h2 id="dns">DNS does not resolve</h2>
+<pre><code class="language-shell">dig webfleet.company.com A
+dig webfleet.company.com AAAA</code></pre>
+<p>Confirm the record points at the public reverse proxy and allow for DNS TTL/propagation.</p>
+<h2 id="tls">TLS certificate problems</h2>
+<p>Confirm ports 80/443 reach the proxy, the hostname resolves to that proxy and the certificate configuration names the exact Web Fleet hostname.</p>
+<h2 id="postgres">PostgreSQL connection failures</h2>
+<p>Test network reachability from the Web Fleet host, database credentials, database existence and TLS requirements. The first-run setup flow will test the URL before accepting PostgreSQL.</p>
+<h2 id="permissions">Service permissions</h2>
+<p>The Web Fleet service user needs access to its configured data directory but should not run with broad filesystem privileges. SQLite deployments also require write access to the directory containing the database and WAL files.</p>
 </article>
 </main>
 <footer class="site-footer">

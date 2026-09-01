@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
 <meta name="theme-color" content="#171817">
-<title>Roadmap - Web Fleet</title>
+<title>First-run setup - Web Fleet</title>
 <link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/css/style.css">
 <script src="../assets/js/script.js" defer></script>
@@ -76,22 +76,38 @@
 </aside>
 <article class="docs-content">
 <p class="eyebrow">Operate Web Fleet</p>
-<h1>Roadmap</h1>
-<p class="docs-lede">Web Fleet is being built from the monitoring foundation outward. CP1 through CP20 are implemented in development: performance history, manual browser Audit, privacy-first analytics, backup/restore, Linux service lifecycle, PostgreSQL support and retention/maintenance now sit on top of the monitoring foundation.</p>
+<h1>First-run setup</h1>
+<p class="docs-lede">Database choice comes before the first administrator. SQLite remains the simplest default; PostgreSQL is available for operators who want an external database.</p>
+<div class="notice"><strong>Development status:</strong> the PostgreSQL storage path exists, but the browser setup flow below is a required roadmap gate before public preview.</div>
+<h2 id="database-choice">Choose the database first</h2>
+<p>The ordinary setup flow will present SQLite and PostgreSQL before asking for an administrator email or password. This avoids creating identity data in one database and then casually switching providers underneath it.</p>
+<pre><code class="language-text">Database
 
-<div class="roadmap-list">
-  <section><span>Phase 1 · done</span><h2>Prove the monitoring loop</h2><p>Application foundation, admin authentication, grouped site inventory, HTTP checks, scheduler, fleet health, incidents and in-app alerts.</p></section>
-  <section><span>Phase 2 · implemented in development</span><h2>Understand websites</h2><p>TLS, DNS, headers, redirects, crawling, link health and server-side performance history are implemented. Audit is manual by default, and audit history is opt-in.</p></section>
-  <section><span>Phase 3 · implemented in development</span><h2>Privacy-first analytics</h2><p>Optional tracker, ingestion, retention, rollups, dashboards, custom events and goals.</p></section>
-  <section><span>Phase 4 · implemented in development</span><h2>Self-hosting reliability</h2><p>Backup/restore, service install, updates, rollback, PostgreSQL and retention/maintenance.</p></section>
-  <section><span>Phase 5</span><h2>Agency and enterprise scale</h2><p>Users, organizations, RBAC, API tokens, OIDC and optional worker/process separation.</p></section>
-  <section><span>Phase 6</span><h2>Integrations and public preview</h2><p>Deployment observations, notifications, accessibility, large-fleet UX, hardening and release readiness.</p></section>
-</div>
+● SQLite
+  Simplest setup. Web Fleet owns one local database file.
 
-<h2 id="not-now">Explicitly not first</h2>
-<p>Website hosting, DNS management, CDN/proxy services, deployment execution, session replay, heatmaps, visitor fingerprinting and host telemetry are intentionally outside the first product.</p>
+○ PostgreSQL
+  Use an existing PostgreSQL server.
 
-<p>The application repository contains the detailed living checkpoint plan. Public documentation will be updated as checkpoints move from planned to implemented.</p>
+[ Continue with SQLite ]</code></pre>
+<h2 id="postgres">PostgreSQL</h2>
+<p>Selecting PostgreSQL reveals the connection URL and a connection test. The action remains visibly disabled while the URL is empty.</p>
+<pre><code class="language-text">PostgreSQL URL
+postgres://webfleet:password@db.internal:5432/webfleet
+
+[ Test and use PostgreSQL ]</code></pre>
+<p>Web Fleet validates the real connection before accepting it. If the provider change requires a process restart, setup stops and displays an explicit restart-required state rather than exposing the administrator form prematurely.</p>
+<pre><code class="language-text">Restart required
+
+PostgreSQL is configured.
+
+1. Stop and start Web Fleet.
+2. Reload this page.
+3. Create the administrator account.</code></pre>
+<h2 id="administrator">Create the administrator</h2>
+<p>After restart the page must explicitly say <strong>Create the administrator account</strong>. It is not a login screen: no administrator exists yet.</p>
+<h2 id="noninteractive">Server-managed configuration</h2>
+<p>Automated deployments can provide <code>WEBFLEET_DATABASE_URL</code> before first launch. The browser flow remains the default experience for ordinary self-hosters.</p>
 </article>
 </main>
 <footer class="site-footer">

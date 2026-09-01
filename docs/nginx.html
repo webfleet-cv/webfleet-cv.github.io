@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
 <meta name="theme-color" content="#171817">
-<title>Roadmap - Web Fleet</title>
+<title>nginx - Web Fleet</title>
 <link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/css/style.css">
 <script src="../assets/js/script.js" defer></script>
@@ -75,23 +75,30 @@
   </div>
 </aside>
 <article class="docs-content">
-<p class="eyebrow">Operate Web Fleet</p>
-<h1>Roadmap</h1>
-<p class="docs-lede">Web Fleet is being built from the monitoring foundation outward. CP1 through CP20 are implemented in development: performance history, manual browser Audit, privacy-first analytics, backup/restore, Linux service lifecycle, PostgreSQL support and retention/maintenance now sit on top of the monitoring foundation.</p>
+<p class="eyebrow">Deployment</p>
+<h1>nginx</h1>
+<p class="docs-lede">Use nginx as the HTTPS reverse proxy while Web Fleet listens privately on loopback.</p>
+<h2 id="config">Reverse proxy</h2>
+<pre><code class="language-nginx">server {
+    listen 443 ssl;
+    server_name webfleet.company.com;
 
-<div class="roadmap-list">
-  <section><span>Phase 1 · done</span><h2>Prove the monitoring loop</h2><p>Application foundation, admin authentication, grouped site inventory, HTTP checks, scheduler, fleet health, incidents and in-app alerts.</p></section>
-  <section><span>Phase 2 · implemented in development</span><h2>Understand websites</h2><p>TLS, DNS, headers, redirects, crawling, link health and server-side performance history are implemented. Audit is manual by default, and audit history is opt-in.</p></section>
-  <section><span>Phase 3 · implemented in development</span><h2>Privacy-first analytics</h2><p>Optional tracker, ingestion, retention, rollups, dashboards, custom events and goals.</p></section>
-  <section><span>Phase 4 · implemented in development</span><h2>Self-hosting reliability</h2><p>Backup/restore, service install, updates, rollback, PostgreSQL and retention/maintenance.</p></section>
-  <section><span>Phase 5</span><h2>Agency and enterprise scale</h2><p>Users, organizations, RBAC, API tokens, OIDC and optional worker/process separation.</p></section>
-  <section><span>Phase 6</span><h2>Integrations and public preview</h2><p>Deployment observations, notifications, accessibility, large-fleet UX, hardening and release readiness.</p></section>
-</div>
+    ssl_certificate     /etc/letsencrypt/live/webfleet.company.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/webfleet.company.com/privkey.pem;
 
-<h2 id="not-now">Explicitly not first</h2>
-<p>Website hosting, DNS management, CDN/proxy services, deployment execution, session replay, heatmaps, visitor fingerprinting and host telemetry are intentionally outside the first product.</p>
-
-<p>The application repository contains the detailed living checkpoint plan. Public documentation will be updated as checkpoints move from planned to implemented.</p>
+    location / {
+        proxy_pass http://127.0.0.1:8090;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}</code></pre>
+<h2 id="validate">Validate</h2>
+<pre><code class="language-shell">sudo nginx -t
+sudo systemctl reload nginx
+curl -I https://webfleet.company.com/healthz</code></pre>
+<p>Only trust forwarding headers from infrastructure you control. Web Fleet's public-preview hardening must explicitly review proxy/header trust boundaries.</p>
 </article>
 </main>
 <footer class="site-footer">
