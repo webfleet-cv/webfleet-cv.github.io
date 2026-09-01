@@ -1,6 +1,6 @@
 <p class="eyebrow">Documentation</p>
 <h1>Getting started</h1>
-<p class="docs-lede">Web Fleet is in active development. The first ten implementation checkpoints now provide the monitoring foundation, while installation, performance history and analytics are still being prepared for public release.</p>
+<p class="docs-lede">Web Fleet is in active development. The first twenty implementation checkpoints now cover monitoring, performance, manual Audit, analytics and self-hosting foundations. There is still no public release or supported installer.</p>
 
 <div class="notice"><strong>Current status:</strong> CP1 through CP10 are implemented in the development repository, but there is not yet a public release or supported installer. The source build already includes first-admin setup, grouped site inventory, fleet health, incidents, TLS, DNS, headers/redirects and bounded link crawling.</div>
 
@@ -18,7 +18,7 @@ URL:      https://example.com
 Interval: 60 seconds</code></pre>
 
 <h2 id="first-check">What happens after adding a site</h2>
-<p>Web Fleet schedules guarded HTTP checks, records status and latency, classifies failures, derives a fleet-level health state, tracks coherent incidents, observes TLS/DNS/header/redirect state, and runs a separate bounded crawler for page/link health. Performance history is the next checkpoint, followed by optional browser-rendered Site Audits; privacy-first analytics follows after that.</p>
+<p>Web Fleet schedules guarded HTTP checks, records status and latency, classifies failures, derives a fleet-level health state, tracks coherent incidents, observes TLS/DNS/header/redirect state, and runs a separate bounded crawler for page/link health. Performance history, manual browser Audit and privacy-first analytics are implemented in development. Audit never runs automatically and history is opt-in.</p>
 
 <h2 id="analytics">Adding analytics later</h2>
 <p>Analytics is deliberately separate from public monitoring. A GitHub Pages site, static Nift site or application hosted on another provider can send pageview events to one central Web Fleet server.</p>
