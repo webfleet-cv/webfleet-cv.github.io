@@ -295,3 +295,8 @@ This repository is the authoritative Nift source for the public Web Fleet websit
 - Public copy must distinguish implemented development functionality from publicly released functionality. CP1-CP10 exist in the application repository, but Web Fleet does not yet have a public release or supported installer.
 - The public visual identity should remain distinct from Nift/Trestle: use the current squared operations-ledger language, tighter mono labels and structured rows rather than drifting back to rounded generic card grids.
 - The source repository/branch intentionally ignores `/public/` because `public/` is its own generated Git repository. Keep both repositories present in the development workspace; commit generated output and direct image assets in the nested public repository, then commit source changes separately.
+
+
+## Planned product coverage
+
+The application roadmap now includes CP12 Site Audits after performance history. Public docs should describe these as optional browser-rendered evaluations with history/regression reporting, not as Google Lighthouse compatibility. Basic monitoring must remain usable without Chromium.
