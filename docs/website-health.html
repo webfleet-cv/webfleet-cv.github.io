@@ -93,7 +93,18 @@
 <p>Web Fleet records bounded redirect chains and selected HTTP/security headers independently from availability. Required-header expectations are configurable per site so an optional header is not treated as universally mandatory.</p>
 
 <h2 id="performance">Performance</h2>
-<p>Server-side timings and transfer behaviour come first because they can be measured cheaply and consistently. Browser performance checks may be added later, but Web Fleet should never label synthetic server timing as Core Web Vitals.</p>
+<p>Server-side timings and transfer behaviour come first because they can be measured cheaply and consistently. Web Fleet should never label synthetic server timing as Core Web Vitals.</p>
+
+<h2 id="audits">Site Audits</h2>
+<p>CP12 will add optional browser-rendered audits for representative pages. The site-detail UI will expose these under an <strong>Audits</strong> tab with retained history, category scores, individual findings and regression explanations.</p>
+<ul>
+  <li>Performance signals measured in a real browser context.</li>
+  <li>Accessibility checks with concrete failing elements where practical.</li>
+  <li>Best-practice and security-hygiene checks.</li>
+  <li>Technical discoverability and SEO-style checks without pretending Web Fleet is a search-ranking oracle.</li>
+  <li>Fleet-wide surfacing when an audit meaningfully regresses.</li>
+</ul>
+<p>Browser audits will run less frequently than uptime checks and remain optional, so a small Web Fleet installation does not need Chromium merely to monitor availability. Web Fleet will describe this feature as Site Audits rather than claiming Google Lighthouse compatibility.</p>
 </article>
 </main>
 <footer class="site-footer">

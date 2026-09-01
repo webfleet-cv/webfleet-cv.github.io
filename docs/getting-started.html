@@ -89,7 +89,7 @@ URL:      https://example.com
 Interval: 60 seconds</code></pre>
 
 <h2 id="first-check">What happens after adding a site</h2>
-<p>Web Fleet schedules guarded HTTP checks, records status and latency, classifies failures, derives a fleet-level health state, tracks coherent incidents, observes TLS/DNS/header/redirect state, and runs a separate bounded crawler for page/link health. Performance history is the next checkpoint; optional analytics follows after that.</p>
+<p>Web Fleet schedules guarded HTTP checks, records status and latency, classifies failures, derives a fleet-level health state, tracks coherent incidents, observes TLS/DNS/header/redirect state, and runs a separate bounded crawler for page/link health. Performance history is the next checkpoint, followed by optional browser-rendered Site Audits; privacy-first analytics follows after that.</p>
 
 <h2 id="analytics">Adding analytics later</h2>
 <p>Analytics is deliberately separate from public monitoring. A GitHub Pages site, static Nift site or application hosted on another provider can send pageview events to one central Web Fleet server.</p>
