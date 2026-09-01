@@ -100,9 +100,9 @@ Web Fleet
 <pre><code class="language-shell">WEBFLEET_TRUSTED_PROXIES=127.0.0.1, ::1</code></pre>
 <p>Forwarded headers (<code>X-Forwarded-Proto</code>, <code>X-Forwarded-For</code>) are honored only from the configured trusted proxy addresses. An untrusted client can never spoof them to upgrade a plaintext request, change its client identity, alter OIDC redirect URIs or make the session cookie <code>Secure</code>. Without a trusted-proxy configuration Web Fleet treats every request as direct, detecting HTTPS only from the TLS connection itself.</p>
 <h2 id="public-url">Public origin for OIDC</h2>
-<p>When OIDC is enabled behind a reverse proxy, set the canonical external origin so the authorization callback URI does not depend on the incoming Host header:</p>
+<p>OIDC requires a canonical external origin so the authorization callback URI never depends on the incoming <code>Host</code> header. Set it before enabling OIDC:</p>
 <pre><code class="language-shell">WEBFLEET_PUBLIC_URL=https://webfleet.company.com</code></pre>
-<p><code>X-Forwarded-Host</code> and <code>Forwarded</code> are never trusted; with this value configured, an arbitrary Host header cannot rewrite the registered OIDC callback origin.</p>
+<p>Without this value, OIDC login and configuration are rejected with a clear error and local password authentication continues to work. <code>X-Forwarded-Host</code> and <code>Forwarded</code> are never trusted, and the configured origin is used for direct and reverse-proxy deployments alike.</p>
 <h2 id="service">Linux service</h2>
 <p>The development CLI includes a systemd service lifecycle. The eventual release documentation will pair this with verified release artifacts rather than asking operators to copy arbitrary binaries into place.</p>
 <pre><code class="language-shell">sudo webfleet service install
