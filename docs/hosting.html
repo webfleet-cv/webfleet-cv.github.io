@@ -95,6 +95,10 @@ Web Fleet
    ├── manual Audit worker
    └── SQLite or PostgreSQL</code></pre>
 <p>Keep the application bound to loopback when a reverse proxy terminates public HTTPS. Expose only ports 80/443 from the proxy unless your network design intentionally differs.</p>
+<h2 id="trusted-proxies">Trusted reverse proxies</h2>
+<p>When a reverse proxy terminates HTTPS and forwards to Web Fleet over loopback, tell Web Fleet which proxy addresses are trusted so it can honor forwarded scheme and client information:</p>
+<pre><code class="language-shell">WEBFLEET_TRUSTED_PROXIES=127.0.0.1, ::1</code></pre>
+<p>Forwarded headers (<code>X-Forwarded-Proto</code>, <code>X-Forwarded-For</code>) are honored only from the configured trusted proxy addresses. An untrusted client can never spoof them to upgrade a plaintext request, change its client identity, alter OIDC redirect URIs or make the session cookie <code>Secure</code>. Without a trusted-proxy configuration Web Fleet treats every request as direct, detecting HTTPS only from the TLS connection itself.</p>
 <h2 id="service">Linux service</h2>
 <p>The development CLI includes a systemd service lifecycle. The eventual release documentation will pair this with verified release artifacts rather than asking operators to copy arbitrary binaries into place.</p>
 <pre><code class="language-shell">sudo webfleet service install
