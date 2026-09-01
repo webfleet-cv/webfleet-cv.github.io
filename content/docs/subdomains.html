@@ -15,3 +15,30 @@
 <p>Terminate HTTPS at Caddy, nginx or another trusted reverse proxy and forward Web Fleet to its private listen address such as <code>127.0.0.1:8090</code>. Keep the public hostname stable because analytics properties validate their configured website origins.</p>
 <h2 id="analytics">Analytics across domains</h2>
 <p>A website such as <code>www.company.com</code> can send optional analytics events to <code>webfleet.company.com</code>. Web Fleet validates the analytics property and allowed website origin; the tracker does not require Web Fleet to be hosted on the monitored site's machine.</p>
+
+<h2 id="walkthrough">Set up Web Fleet on <code>webfleet.company.com</code></h2>
+<ol>
+<li><strong>Create DNS.</strong> Add an A/AAAA record for <code>webfleet.company.com</code> pointing at the server running your reverse proxy.</li>
+<li><strong>Keep Web Fleet private.</strong> Run Web Fleet on <code>127.0.0.1:8090</code>; do not expose that application port publicly when the proxy is the ingress.</li>
+<li><strong>Choose a proxy.</strong> Follow the <a href="@pathto('docs/caddy')">Caddy</a> or <a href="@pathto('docs/nginx')">nginx</a> configuration.</li>
+<li><strong>Verify HTTPS.</strong> Load <code>https://webfleet.company.com/healthz</code> and require a successful response before proceeding.</li>
+<li><strong>Complete first-run setup.</strong> Open <code>https://webfleet.company.com</code>, choose SQLite or PostgreSQL, follow any restart instruction, then create the administrator account.</li>
+<li><strong>Add websites.</strong> Monitoring works remotely; the monitored websites do not need to live on the Web Fleet server.</li>
+<li><strong>Add analytics only where wanted.</strong> Enable a property's tracker and allow its website origin. Analytics remains opt-in.</li>
+</ol>
+<h3 id="caddy-example">Caddy</h3>
+<pre><code class="language-text">webfleet.company.com {
+    reverse_proxy 127.0.0.1:8090
+}</code></pre>
+<h3 id="nginx-example">nginx</h3>
+<pre><code class="language-nginx">server {
+    listen 443 ssl;
+    server_name webfleet.company.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8090;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}</code></pre>
+<p>If DNS resolves but HTTPS does not, check ports 80/443 and certificate issuance. If HTTPS works but Web Fleet returns 502/504, test <code>curl http://127.0.0.1:8090/healthz</code> on the server before changing DNS.</p>
