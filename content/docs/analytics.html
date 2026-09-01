@@ -26,6 +26,9 @@ Nift sites   ─┘             ↓
   package: "linux-x86_64"
 });</code></pre>
 
+<h2 id="origin">Origin and abuse controls</h2>
+<p>The ingestion endpoint is intentionally public, so it is hardened as an attacker-reachable surface. Browsers sending the tracker must present an <code>Origin</code> matching the analytics property's allowed origin (the site's own origin); requests without an <code>Origin</code> are rejected by default. Non-browser/server-side ingestion is an explicit operator choice and requires <code>WEBFLEET_ANALYTICS_SERVER_SIDE=1</code>. Failed/unknown-property and valid-property traffic are rate limited per client address (bounded in memory; raw IPs are never persisted), event kinds and payloads are shape-validated, and request/body/field sizes are bounded.</p>
+
 <h2 id="privacy">Default privacy posture</h2>
 <ul>
   <li>No cookies required for normal pageview analytics.</li>
