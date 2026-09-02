@@ -3,7 +3,7 @@
 <p class="docs-lede">Work from the process outward: database, Web Fleet health endpoint, private proxy connection, DNS, then public TLS.</p>
 <h2 id="502">502 or 504 from the proxy</h2>
 <pre><code class="language-shell">systemctl status webfleet
-curl -i http://127.0.0.1:8090/healthz
+curl -i http://127.0.0.1:7336/healthz
 journalctl -u webfleet --since "15 minutes ago"</code></pre>
 <p>If the private health endpoint fails, fix Web Fleet or its database before changing Caddy/nginx. If it succeeds, inspect the proxy upstream address and service permissions.</p>
 <h2 id="dns">DNS does not resolve</h2>

@@ -10,7 +10,7 @@ webfleet.company.com
    │ HTTPS
    ▼
 Caddy / nginx
-   │ 127.0.0.1:8090
+   │ 127.0.0.1:7336
    ▼
 Web Fleet
    ├── monitoring
@@ -18,6 +18,12 @@ Web Fleet
    ├── manual Audit worker
    └── SQLite or PostgreSQL</code></pre>
 <p>Keep the application bound to loopback when a reverse proxy terminates public HTTPS. Expose only ports 80/443 from the proxy unless your network design intentionally differs.</p>
+<h2 id="listen">Listen address</h2>
+<p>Web Fleet's default listener is <code>127.0.0.1:7336</code>. The foreground accepts <code>--host</code> and <code>--port</code>; both are also honored from <code>WEBFLEET_HOST</code> / <code>WEBFLEET_PORT</code>. Precedence per field is <strong>CLI flag &gt; environment variable &gt; default</strong>, and a port must be an integer from 1 through 65535: empty, malformed, zero, negative or oversized values fail with a clear error (never a silent fallback), whitespace-only values fail, and IPv6 hosts are bracketed.</p>
+<pre><code class="language-shell">webfleet --host 127.0.0.1 --port 7336
+WEBFLEET_HOST=127.0.0.1 WEBFLEET_PORT=7336 webfleet</code></pre>
+<p>The legacy single-address <code>WEBFLEET_LISTEN</code> environment variable and the <code>service install --listen</code> flag are retained. An explicit <code>--host</code>/<code>--port</code> overrides <code>WEBFLEET_LISTEN</code>; combining <code>--listen</code> with <code>--host</code>/<code>--port</code> fails; and when only environment variables are involved, <code>WEBFLEET_LISTEN</code> combined with <code>WEBFLEET_HOST</code>/<code>WEBFLEET_PORT</code> fails clearly rather than silently picking one.</p>
+<div class="notice"><strong>Security:</strong> binding Web Fleet to <code>0.0.0.0</code> (or any non-loopback host) exposes the backend directly to the network. That must be a deliberate choice. The recommended shape is loopback plus a trusted reverse proxy that terminates HTTPS.</div>
 <h2 id="trusted-proxies">Trusted reverse proxies</h2>
 <p>When a reverse proxy terminates HTTPS and forwards to Web Fleet over loopback, tell Web Fleet which proxy addresses are trusted so it can honor forwarded scheme and client information:</p>
 <pre><code class="language-shell">WEBFLEET_TRUSTED_PROXIES=127.0.0.1, ::1</code></pre>
@@ -28,7 +34,15 @@ Web Fleet
 <p>Without this value, OIDC login and configuration are rejected with a clear error and local password authentication continues to work. <code>X-Forwarded-Host</code> and <code>Forwarded</code> are never trusted, and the configured origin is used for direct and reverse-proxy deployments alike.</p>
 <h2 id="service">Linux service</h2>
 <p>The development CLI includes a systemd service lifecycle. The eventual release documentation will pair this with verified release artifacts rather than asking operators to copy arbitrary binaries into place.</p>
-<pre><code class="language-shell">sudo webfleet service install
+<pre><code class="language-shell"># default install (explicit 127.0.0.1:7336 recorded in the unit)
+sudo webfleet service install
+
+# explicit listener, canonical host/port recorded in ExecStart
+sudo webfleet service install --host 127.0.0.1 --port 7336
+
+# legacy single-address form (retained)
+sudo webfleet service install --listen 127.0.0.1:7336
+
 systemctl status webfleet
 
 # verified artifact update
@@ -36,6 +50,7 @@ sudo webfleet service update ./webfleet SHA256
 
 # restore the previous binary
 sudo webfleet service rollback</code></pre>
+<p>Installation records the listener in the managed unit so the runtime listener survives restart and reboot: a new <code>--host</code>/<code>--port</code> install writes the pair into <code>ExecStart</code>, while legacy bootstrap units (WEBFLEET_LISTEN environment or <code>--listen</code>) keep the recorded <code>WEBFLEET_LISTEN</code> environment. <code>service status</code> and its health check use the installed process's effective listener. Existing installations keep their previously recorded listener until they are reinstalled with an explicit <code>--host</code>/<code>--port</code>.</p>
 <h2 id="database">Database placement</h2>
 <p>SQLite is appropriate for the simplest single-node deployment. PostgreSQL can run on the same private network or as a managed/private database. Do not expose PostgreSQL publicly merely for Web Fleet.</p>
 <h2 id="audit-runtime">Browser Audit</h2>
