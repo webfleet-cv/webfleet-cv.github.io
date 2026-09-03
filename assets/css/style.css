@@ -168,3 +168,6 @@ th { background: var(--surface); color: var(--text); } td { color: var(--muted);
   .roadmap-list section { grid-template-columns: 1fr; gap: 6px; } pre { margin-left: -2px; margin-right: -2px; padding-left: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { transition: none !important; } }
+
+.code-copy-shell{position:relative;margin:1em 0}.code-copy-shell>pre{margin:0}.code-copy-shell .copy-code,.code-copy-shell .copy-button{position:absolute;top:9px;right:9px}
+html,*{scrollbar-color:#3a4140 #111413}*::-webkit-scrollbar{width:11px;height:11px}*::-webkit-scrollbar-track{background:#111413}*::-webkit-scrollbar-thumb{background:#3a4140;border:2px solid #111413;border-radius:8px}*::-webkit-scrollbar-thumb:hover{background:#555f5c}

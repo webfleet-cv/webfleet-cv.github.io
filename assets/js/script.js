@@ -140,6 +140,10 @@
     const language = languageClass ? languageClass.slice('language-'.length) : 'text';
     const raw = code.textContent || '';
     highlight(code, language);
+    const shell = document.createElement('div');
+    shell.className = 'code-copy-shell';
+    pre.before(shell);
+    shell.appendChild(pre);
 
     const button = document.createElement('button');
     button.type = 'button';
@@ -171,6 +175,6 @@
         button.setAttribute('aria-label', 'Copy failed');
       }
     });
-    pre.appendChild(button);
+    shell.appendChild(button);
   });
 })();
