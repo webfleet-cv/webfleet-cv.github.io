@@ -20,13 +20,12 @@
     "templates/partials/header.html"
   ],
   "reqs": [
-    "public/assets/css/style.css",
     "public/assets/images/web-fleet-mark.svg",
-    "public/assets/js/script.js",
     "public/docs/alerts.html",
     "public/docs/analytics.html",
     "public/docs/api.html",
     "public/docs/architecture.html",
+    "public/docs/battle-tested.html",
     "public/docs/caddy.html",
     "public/docs/deployment-troubleshooting.html",
     "public/docs/first-run.html",

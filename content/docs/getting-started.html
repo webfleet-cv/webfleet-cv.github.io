@@ -32,7 +32,7 @@ Interval: 60 seconds</code></pre>
 
 <p>The tracker is served at <code>/wf.js</code> on the Web Fleet host; the <code>data-webfleet</code> value is the analytics property key shown when analytics is enabled for a site in the dashboard.</p>
 
-<p>The planned default tracker does not require cookies or persistent visitor profiles.</p>
+<p>The shipped default tracker does not require cookies or persistent visitor profiles. It validates the configured site origin, bounds event payloads, rate-limits attacker-reachable ingestion and stores no raw client IP address.</p>
 
 <h2 id="next">Next reading</h2>
 <p>Read <a href="@pathto('docs/overview')">Product overview</a> for the product boundary, or <a href="@pathto('docs/architecture')">Architecture</a> for the implementation direction.</p>

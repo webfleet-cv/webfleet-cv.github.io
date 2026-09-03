@@ -86,16 +86,9 @@
       "template": "templates/docs.html"
     },
     {
-      "name": "assets/css/style",
-      "title": "style",
-      "content-ext": ".css",
-      "output-ext": ".css"
-    },
-    {
-      "name": "assets/js/script",
-      "title": "script",
-      "content-ext": ".js",
-      "output-ext": ".js"
+      "name": "docs/battle-tested",
+      "title": "Battle tested",
+      "template": "templates/docs.html"
     }
   ]
 }

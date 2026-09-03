@@ -1,4 +1,13 @@
 # HANDOVER.md
+
+## Frontend asset ownership
+
+Nift tracks and builds HTML pages only. CSS, JavaScript, images, icons and other
+static assets are canonical in the generated web root (`public/`, `web/dist/`
+or the repository's embedded-public directory). Edit those files directly.
+Do not recreate asset copies under `content/`, do not add asset entries to
+`.nift/tracked.json`, and do not let a Nift build overwrite them. After changing
+HTML templates or content, run Nift and verify that direct assets are unchanged.
 v0.0.5
 
 This is a living handover for working effectively in a Nift project.
@@ -282,11 +291,11 @@ Prefer documented Nift behaviour and the existing project structure over guessin
 
 This repository is the authoritative Nift source for the public Web Fleet website.
 
-- `content/` contains tracked HTML/CSS/JavaScript source.
+- `content/` contains tracked HTML page source only.
 - `templates/` contains shared page composition.
-- `public/` is the generated GitHub Pages repository and also contains direct static image assets.
-- Do not edit generated HTML/CSS/JavaScript under `public/` directly.
-- Image assets belong directly under `public/assets/images/` and are referenced from Nift source using `@pathto('public/assets/images/...')`.
+- `public/` is the GitHub Pages repository and the canonical home of all static assets.
+- Edit HTML through Nift, but edit CSS, JavaScript and images directly under `public/`.
+- Image assets are referenced from Nift source using output-relative paths such as `@pathto('assets/images/...')`.
 - Shared header, footer and documentation navigation must remain `@input` dependencies rather than copied markup.
 - Internal page links must use tracked page names with `@pathto`.
 - The mobile menu is a full-page overlay below the header and must close when the viewport returns to tablet/desktop width.

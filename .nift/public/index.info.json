@@ -19,9 +19,7 @@
     "templates/template.html"
   ],
   "reqs": [
-    "public/assets/css/style.css",
     "public/assets/images/web-fleet-mark.svg",
-    "public/assets/js/script.js",
     "public/docs/alerts.html",
     "public/docs/analytics.html",
     "public/docs/api.html",
