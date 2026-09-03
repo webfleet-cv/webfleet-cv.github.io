@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
 <meta name="theme-color" content="#171817">
-<title>Getting started - Web Fleet</title>
-<link rel="icon" href="../assets/images/web-fleet-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/style.css">
-<script src="../assets/js/script.js" defer></script>
+<title>Web Fleet</title>
+<link rel="icon" href="/assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/script.js" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -69,6 +69,7 @@
     <a href="./caddy.html">Caddy</a>
     <a href="./nginx.html">nginx</a>
     <a href="./deployment-troubleshooting.html">Deployment troubleshooting</a>
+    <a href="./battle-tested.html">Battle tested</a>
     <a href="./architecture.html">Architecture</a>
     <a href="./api.html">API and integrations</a>
     <a href="./roadmap.html">Roadmap</a>
@@ -109,7 +110,7 @@ Interval: 60 seconds</code></pre>
 
 <p>The tracker is served at <code>/wf.js</code> on the Web Fleet host; the <code>data-webfleet</code> value is the analytics property key shown when analytics is enabled for a site in the dashboard.</p>
 
-<p>The planned default tracker does not require cookies or persistent visitor profiles.</p>
+<p>The shipped default tracker does not require cookies or persistent visitor profiles. It validates the configured site origin, bounds event payloads, rate-limits attacker-reachable ingestion and stores no raw client IP address.</p>
 
 <h2 id="next">Next reading</h2>
 <p>Read <a href="./overview.html">Product overview</a> for the product boundary, or <a href="./architecture.html">Architecture</a> for the implementation direction.</p>

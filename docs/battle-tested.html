@@ -76,50 +76,13 @@
   </div>
 </aside>
 <article class="docs-content">
-<p class="eyebrow">Operate Web Fleet</p>
-<h1>Company subdomains</h1>
-<p class="docs-lede">For organizations running several self-hosted tools, a dedicated subdomain per service is usually the cleanest deployment model.</p>
-<h2 id="pattern">Recommended pattern</h2>
-<pre><code class="language-text">company.com
-├── webfleet.company.com   → Web Fleet
-├── trestle.company.com    → Trestle
-├── cortex.company.com     → Cortex
-└── watchpost.company.com  → Watchpost</code></pre>
-<p>These products remain independent. They do not need to share a server, database or authentication system merely because they use sibling subdomains.</p>
-<h2 id="dns">DNS</h2>
-<p>Create an <code>A</code>/<code>AAAA</code> record for <code>webfleet.company.com</code> pointing to the reverse proxy, or a suitable <code>CNAME</code> where your DNS/provider architecture supports it.</p>
-<pre><code class="language-text">webfleet.company.com.  A  203.0.113.20</code></pre>
-<h2 id="proxy">Reverse proxy</h2>
-<p>Terminate HTTPS at Caddy, nginx or another trusted reverse proxy and forward Web Fleet to its private listen address such as <code>127.0.0.1:7336</code>. Keep the public hostname stable because analytics properties validate their configured website origins.</p>
-<h2 id="analytics">Analytics across domains</h2>
-<p>A website such as <code>www.company.com</code> can send optional analytics events to <code>webfleet.company.com</code>. Web Fleet validates the analytics property and allowed website origin; the tracker does not require Web Fleet to be hosted on the monitored site's machine.</p>
-
-<h2 id="walkthrough">Set up Web Fleet on <code>webfleet.company.com</code></h2>
-<ol>
-<li><strong>Create DNS.</strong> Add an A/AAAA record for <code>webfleet.company.com</code> pointing at the server running your reverse proxy.</li>
-<li><strong>Keep Web Fleet private.</strong> Run Web Fleet on the loopback default <code>127.0.0.1:7336</code>; do not expose that application port publicly when the proxy is the ingress.</li>
-<li><strong>Choose a proxy.</strong> Follow the <a href="./caddy.html">Caddy</a> or <a href="./nginx.html">nginx</a> configuration.</li>
-<li><strong>Verify HTTPS.</strong> Load <code>https://webfleet.company.com/healthz</code> and require a successful response before proceeding.</li>
-<li><strong>Complete first-run setup.</strong> Open <code>https://webfleet.company.com</code>, choose SQLite or PostgreSQL, follow any restart instruction, then create the administrator account.</li>
-<li><strong>Add websites.</strong> Monitoring works remotely; the monitored websites do not need to live on the Web Fleet server.</li>
-<li><strong>Add analytics only where wanted.</strong> Enable a property's tracker and allow its website origin. Analytics remains opt-in.</li>
-</ol>
-<h3 id="caddy-example">Caddy</h3>
-<pre><code class="language-text">webfleet.company.com {
-    reverse_proxy 127.0.0.1:7336
-}</code></pre>
-<h3 id="nginx-example">nginx</h3>
-<pre><code class="language-nginx">server {
-    listen 443 ssl;
-    server_name webfleet.company.com;
-
-    location / {
-        proxy_pass http://127.0.0.1:7336;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}</code></pre>
-<p>If DNS resolves but HTTPS does not, check ports 80/443 and certificate issuance. If HTTPS works but Web Fleet returns 502/504, test <code>curl http://127.0.0.1:7336/healthz</code> on the server before changing DNS.</p>
+<p class="eyebrow">Evidence</p><h1>Battle tested</h1><p class="docs-lede">Web Fleet records the limits of its verification alongside the features it claims.</p>
+<h2 id="tested">What is exercised</h2><ul><li>Normal, race-enabled and cross-platform Go build suites.</li><li>First-run authentication, site management, keyboard navigation and 320px overflow checks in a real browser.</li><li>Monitoring, TLS, DNS, crawling, broken-link provenance, analytics validation and webhook delivery.</li><li>SQLite and PostgreSQL backup paths, service lifecycle transactions, signed release archives and update or rollback rehearsals.</li><li>Scale measurements at 100, 1,000 and 10,000 sites.</li></ul>
+<h2 id="limits">What it does not prove</h2><p>These checks are engineering evidence, not an external security audit or a universal capacity promise. Operators should rehearse backup restoration, HTTPS proxying and upgrades in their own environment.</p>
+<h2 id="reproduce">Reproduce the checks</h2><pre><code class="language-shell">go test ./...
+go test -race ./...
+go vet ./...
+./scripts/verify-release.sh ./dist</code></pre><p>See the project <code>HANDOVER.md</code>, <code>SCALE.md</code> and release limitations for the exact evidence attached to a checkout.</p>
 </article>
 </main>
 <footer class="site-footer">
