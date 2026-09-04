@@ -6,7 +6,11 @@
 
 <h2 id="install">Install, download and update</h2><pre><code class="language-shell">curl -fsSL https://webfleet.cv/install.sh | sh
 curl -fsSL https://webfleet.cv/download.sh | sh
-curl -fsSL https://webfleet.cv/update.sh | sh</code></pre><p>The installer and downloader verify the selected release against its checksum manifest before writing the executable. The updater retains the prior binary or delegates a managed system service transition to Web Fleet.</p><h2 id="goal">The five-minute goal</h2>
+curl -fsSL https://webfleet.cv/update.sh | sh</code></pre><p>The installer and downloader verify the selected release against its checksum manifest before writing the executable. The updater retains the prior binary or delegates a managed system service transition to Web Fleet.</p>
+
+<h2 id="go-install">Install with Go</h2>
+<pre><code class="language-shell">go install github.com/webfleet-cv/webfleet/cmd/webfleet@latest</code></pre>
+<p>This builds Web Fleet from source using Go 1.23 or newer and installs it to your configured Go binary directory. Use the release installer when you prefer the published, checksum-verified binary.</p><h2 id="goal">The five-minute goal</h2>
 <p>The target self-hosted experience is: install Web Fleet, choose SQLite or PostgreSQL, create the first administrator, then add a website URL. The development build already follows the second and third steps, and public monitoring requires no agent or code change on the monitored website.</p>
 
 <pre><code class="language-shell"># Planned installation flow - a public installer does not exist yet
