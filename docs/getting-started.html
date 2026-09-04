@@ -80,15 +80,17 @@
 <h1>Getting started</h1>
 <p class="docs-lede">Web Fleet is in active development. CP30 adversarial hardening is substantially complete through its final campaigns, but there is still no public release or supported installer; that remains the CP31 release gate.</p>
 
-<div class="notice"><strong>Current status:</strong> CP1 through CP29 are implemented in development and CP30 hardening has closed the identity/RBAC, Audit/SSRF, authentication/OIDC, API-token/webhook, PostgreSQL/backup/scheduler and release-portability campaigns. There is not yet a public release or supported installer. Real external-provider OIDC interoperability and the owner's ordinary-user dogfood remain outstanding release gates.</div>
+<div class="notice"><strong>Current status:</strong> CP1 through CP29 and CP30 hardening are implemented. Release automation and verified public installers are prepared, but the first tag has not been published. Real external-provider OIDC interoperability and ordinary-user dogfooding remain important release evidence.</div>
 
-<h2 id="goal">The five-minute goal</h2>
+<h2 id="install">Install, download and update</h2><pre><code class="language-shell">curl -fsSL https://webfleet.cv/install.sh | sh
+curl -fsSL https://webfleet.cv/download.sh | sh
+curl -fsSL https://webfleet.cv/update.sh | sh</code></pre><p>The installer and downloader verify the selected release against its checksum manifest before writing the executable. The updater retains the prior binary or delegates a managed system service transition to Web Fleet.</p><h2 id="goal">The five-minute goal</h2>
 <p>The target self-hosted experience is: install Web Fleet, choose SQLite or PostgreSQL, create the first administrator, then add a website URL. The development build already follows the second and third steps, and public monitoring requires no agent or code change on the monitored website.</p>
 
 <pre><code class="language-shell"># Planned installation flow - a public installer does not exist yet
 webfleet serve</code></pre>
 
-<p>There is no public installer yet. The planned <code>install.sh</code> and release archives arrive with the CP31 release gate; until then Web Fleet runs from a development build.</p>
+<p>The release path provides checksum-verified install, download and update scripts for Linux and macOS. Until the first tag is published, these commands correctly have no stable release to resolve.</p>
 
 <p>Open the dashboard, choose the database before first-admin setup, then add a site such as:</p>
 
