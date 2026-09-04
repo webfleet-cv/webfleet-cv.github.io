@@ -309,3 +309,11 @@ This repository is the authoritative Nift source for the public Web Fleet websit
 ## Planned product coverage
 
 The application roadmap now includes CP12 Site Audits after performance history. Public docs should describe these as optional browser-rendered evaluations with history/regression reporting, not as Google Lighthouse compatibility. Basic monitoring must remain usable without Chromium.
+# Release-script deployment
+
+`content/install.sh`, `content/download.sh`, and `content/update.sh` are the
+public Web Fleet lifecycle scripts. Build with Nift, commit generated `public/`
+first, then commit source and its gitlink. Before an application tag is pushed,
+deploy the site, fetch the scripts from `https://webfleet.cv`, compare exact
+bytes, and run syntax plus fixture-based checksum/update/rollback tests. Do not
+publish a tag while changed installer bytes are absent from the public domain.

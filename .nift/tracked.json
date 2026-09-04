@@ -89,6 +89,9 @@
       "name": "docs/battle-tested",
       "title": "Battle tested",
       "template": "templates/docs.html"
-    }
+    },
+    {"name":"install","title":"install","content-ext":".sh","output-ext":".sh"},
+    {"name":"download","title":"download","content-ext":".sh","output-ext":".sh"},
+    {"name":"update","title":"update","content-ext":".sh","output-ext":".sh"}
   ]
 }
