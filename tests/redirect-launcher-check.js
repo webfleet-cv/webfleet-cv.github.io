@@ -1,0 +1,13 @@
+const fs=require('fs');
+const assert=(ok,msg)=>{if(!ok)throw new Error(msg)};
+const html=fs.readFileSync('public/redirect.html','utf8');
+const js=fs.readFileSync('public/assets/js/script.js','utf8');
+assert(html.includes('data-local-launcher'),'generated redirect page missing launcher root');
+assert(html.includes('data-product="webfleet"'),'generated redirect page missing product id');
+assert(html.includes('data-default-port="7336"'),'generated redirect page missing default port');
+assert(js.includes("raw==='config'||params.has('config')"),'config query contract missing');
+assert(js.includes("mode==='invalid'"),'unknown query rejection missing');
+assert(!js.includes("params.has('port')")&&!js.includes("params.has('portno')"),'legacy query port mutation still supported');
+assert(js.includes('window.location.replace(`http://localhost:${port}/`)'),'localhost redirect missing');
+assert(!html.includes('@content')&&!html.includes('@input('),'generated page contains unresolved Nift syntax');
+console.log('webfleet redirect launcher check: ok');
