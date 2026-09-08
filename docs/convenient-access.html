@@ -77,52 +77,25 @@
   </div>
 </aside>
 <article class="docs-content">
-<p class="eyebrow">Operate Web Fleet</p>
-<h1>Architecture</h1>
-<p class="docs-lede">The architecture starts integrated and keeps subsystem boundaries explicit so scale does not require a rewrite.</p>
+<p class="eyebrow">Documentation</p>
+<h1>Convenient browser access</h1>
+<p class="docs-lede"><a href="https://my.webfleet.cv">my.webfleet.cv</a> is a memorable shortcut to your Web Fleet dashboard. It means you do not need to remember port 7336 or manually type a localhost address and port.</p>
 
-<h2 id="components">Initial components</h2>
-<pre><code class="language-text">Browser dashboard
-       │
-       ▼
-┌───────────────────────────┐
-│ Web Fleet                 │
-│                           │
-│ API / auth                │
-│ fleet queries             │
-│ monitor scheduler         │
-│ remote check workers      │
-│ crawler                   │
-│ analytics ingest/rollups  │  implemented
-│ retention/maintenance     │  implemented
-└──────────────┬────────────┘
-               │
-           SQLite first
-        PostgreSQL at scale</code></pre>
+<h2>Configure it once</h2>
+<ol>
+  <li>Open <a href="https://my.webfleet.cv?config">my.webfleet.cv?config</a>.</li>
+  <li>Keep the defaults for a local Web Fleet instance, or enter a remote domain or IP address and port.</li>
+  <li>Select <strong>Save</strong>, then <strong>Open</strong>.</li>
+</ol>
+<p>Future visits to <a href="https://my.webfleet.cv">my.webfleet.cv</a> forward directly to the saved destination.</p>
 
-<h2 id="analytics-boundary">Analytics remains separable</h2>
-<p>Analytics can share Web Fleet's site/auth/storage foundations while avoiding dependencies on monitoring, crawling, TLS or DNS features. That leaves open a future standalone deployment profile without duplicating the whole product today.</p>
+<div class="notice"><strong>Browser-local setting:</strong> the destination is stored in the current browser profile. Configure it separately on another browser, profile, or device, and revisit the <code>?config</code> URL when the host or port changes.</div>
 
-<h2 id="frontend">Frontend</h2>
-<p>The dashboard uses Nift as its build-time templating/dependency layer with ordinary HTML, CSS and JavaScript. Nift composes and tracks the frontend assets; runtime API and SPA behaviour stays in normal Go/browser code.</p>
+<h2>Local default</h2>
+<pre><code class="language-text">http://localhost:7336</code></pre>
 
-<h2 id="data-model">Data model</h2>
-<pre><code class="language-text">Organization
-├── users / memberships
-└── Groups
-    └── Sites
-        ├── Domains
-        ├── Monitors ── Check results ── Incidents
-        ├── Crawl/page/link observations
-        ├── TLS/DNS/header observations
-        ├── Analytics properties ── Events / rollups
-        └── Deployment events</code></pre>
-
-<h2 id="scale-rule">Scale rule</h2>
-<p>Measure before adding infrastructure. Queues, specialized analytics databases and HA coordination should be introduced only when a documented workload demonstrates that the simpler architecture is insufficient.</p>
-<h2 id="process-roles">Optional process roles</h2><p>The default remains one integrated process. Larger deployments can separate responsibilities without changing the product model.</p><pre><code class="language-shell">webfleet serve
-webfleet worker
-webfleet analytics-ingest</code></pre><p>Web Fleet deliberately does not require Redis, Kafka or Kubernetes. The current CP25 scale decision is to add distributed infrastructure only after repeatable measurements justify it.</p>
+<h2>Remote instances</h2>
+<p>The shortcut accepts a domain or IP address as well as a port, but it only performs browser navigation. It is not a proxy and does not expose Web Fleet to the network. Follow <a href="./hosting.html">Hosting and deployment</a> and the HTTPS guides for remote access.</p>
 </article>
 </main>
 <footer class="site-footer">
