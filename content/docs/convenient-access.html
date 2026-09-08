@@ -1,0 +1,19 @@
+<p class="eyebrow">Documentation</p>
+<h1>Convenient browser access</h1>
+<p class="docs-lede"><a href="https://my.webfleet.cv">my.webfleet.cv</a> is a memorable shortcut to your Web Fleet dashboard. It means you do not need to remember port 7336 or manually type a localhost address and port.</p>
+
+<h2>Configure it once</h2>
+<ol>
+  <li>Open <a href="https://my.webfleet.cv?config">my.webfleet.cv?config</a>.</li>
+  <li>Keep the defaults for a local Web Fleet instance, or enter a remote domain or IP address and port.</li>
+  <li>Select <strong>Save</strong>, then <strong>Open</strong>.</li>
+</ol>
+<p>Future visits to <a href="https://my.webfleet.cv">my.webfleet.cv</a> forward directly to the saved destination.</p>
+
+<div class="notice"><strong>Browser-local setting:</strong> the destination is stored in the current browser profile. Configure it separately on another browser, profile, or device, and revisit the <code>?config</code> URL when the host or port changes.</div>
+
+<h2>Local default</h2>
+<pre><code class="language-text">http://localhost:7336</code></pre>
+
+<h2>Remote instances</h2>
+<p>The shortcut accepts a domain or IP address as well as a port, but it only performs browser navigation. It is not a proxy and does not expose Web Fleet to the network. Follow <a href="@pathto('docs/hosting')">Hosting and deployment</a> and the HTTPS guides for remote access.</p>

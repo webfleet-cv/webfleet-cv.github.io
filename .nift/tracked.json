@@ -6,6 +6,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "docs/convenient-access",
+      "title": "Convenient access",
+      "template": "templates/docs.html"
+    },
+    {
       "name": "docs/getting-started",
       "title": "Getting started",
       "template": "templates/docs.html"
