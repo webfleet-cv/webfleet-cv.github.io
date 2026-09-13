@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Command-line administration · Web Fleet</title><link rel="stylesheet" href="../assets/css/style.css"></head><body><main class="docs-content"><p class="eyebrow">Documentation</p><h1>Command-line administration</h1><pre><code>webfleet setup --email-file /run/secrets/admin-email --password-file /run/secrets/admin-password
+webfleet config show --json
+webfleet reset --auth --confirm "WEBFLEET AUTH"
+webfleet reset --all --confirm "WEBFLEET ALL"</code></pre><p>Stop Web Fleet before reset. SQLite backups are retained; PostgreSQL reset fails closed.</p><p><a href="../docs.html">Back to documentation</a> · <a href="https://gantry.cv">Gantry</a></p></main></body></html>
