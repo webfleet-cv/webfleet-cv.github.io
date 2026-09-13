@@ -102,6 +102,11 @@
       "output-ext": ".sh"
     },
     {
+      "name": "docs/cli",
+      "title": "Command-line administration",
+      "template": "templates/docs.html"
+    },
+    {
       "name": "download",
       "title": "download",
       "content-ext": ".sh",

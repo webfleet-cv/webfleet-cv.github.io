@@ -1,0 +1,5 @@
+<p class="eyebrow">Documentation</p><h1>Command-line administration</h1><p>Web Fleet supports headless first-run provisioning and machine-readable configuration inspection.</p><pre><code>webfleet setup --email-file /run/secrets/admin-email --password-file /run/secrets/admin-password
+webfleet config show --json
+webfleet service status
+webfleet reset --auth --confirm "WEBFLEET AUTH"
+webfleet reset --all --confirm "WEBFLEET ALL"</code></pre><p>Stop Web Fleet before reset. Timestamped backups are retained. Reset currently operates on SQLite and fails closed for PostgreSQL, where you should use a database-native backup and reset workflow.</p><p>Environment variables, service commands, backup/restore operations and the HTTP API provide stable primitives for SSH orchestration and generated deployment scripts. Passwords belong in files, not process arguments.</p>

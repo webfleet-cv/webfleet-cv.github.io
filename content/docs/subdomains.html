@@ -20,7 +20,7 @@
 <ol>
 <li><strong>Create DNS.</strong> Add an A/AAAA record for <code>webfleet.company.com</code> pointing at the server running your reverse proxy.</li>
 <li><strong>Keep Web Fleet private.</strong> Run Web Fleet on the loopback default <code>127.0.0.1:7336</code>; do not expose that application port publicly when the proxy is the ingress.</li>
-<li><strong>Choose a proxy.</strong> Follow the <a href="@pathto('docs/caddy')">Caddy</a> or <a href="@pathto('docs/nginx')">nginx</a> configuration.</li>
+<li><strong>Choose a proxy.</strong> Follow the <a href="@path('docs/caddy')">Caddy</a> or <a href="@path('docs/nginx')">nginx</a> configuration.</li>
 <li><strong>Verify HTTPS.</strong> Load <code>https://webfleet.company.com/healthz</code> and require a successful response before proceeding.</li>
 <li><strong>Complete first-run setup.</strong> Open <code>https://webfleet.company.com</code>, choose SQLite or PostgreSQL, follow any restart instruction, then create the administrator account.</li>
 <li><strong>Add websites.</strong> Monitoring works remotely; the monitored websites do not need to live on the Web Fleet server.</li>

@@ -1,8 +1,8 @@
 <p class="eyebrow">Documentation</p>
 <h1>Getting started</h1>
-<p class="docs-lede">Web Fleet is in active development. CP30 adversarial hardening is substantially complete through its final campaigns, but there is still no public release or supported installer; that remains the CP31 release gate.</p>
+<p class="docs-lede">Web Fleet is in active development. Use a published release when available, or build the current source tree with Go.</p>
 
-<div class="notice"><strong>Current status:</strong> CP1 through CP29 and CP30 hardening are implemented. Release automation and verified public installers are prepared, but the first tag has not been published. Real external-provider OIDC interoperability and ordinary-user dogfooding remain important release evidence.</div>
+<div class="notice"><strong>Current status:</strong> The development build includes release automation, multi-account authentication, SQLite and PostgreSQL support. Validate the release notes for your selected version before production use.</div>
 
 <h2 id="install">Install, download and update</h2><pre><code class="language-shell">curl -fsSL https://webfleet.cv/install.sh | sh
 curl -fsSL https://webfleet.cv/download.sh | sh
@@ -13,7 +13,7 @@ curl -fsSL https://webfleet.cv/update.sh | sh</code></pre><p>The installer and d
 <p>This builds Web Fleet from source using Go 1.23 or newer and installs it to your configured Go binary directory. Use the release installer when you prefer the published, checksum-verified binary.</p><h2 id="goal">The five-minute goal</h2>
 <p>The target self-hosted experience is: install Web Fleet, choose SQLite or PostgreSQL, create the first administrator, then add a website URL. The development build already follows the second and third steps, and public monitoring requires no agent or code change on the monitored website.</p>
 
-<pre><code class="language-shell"># Planned installation flow - a public installer does not exist yet
+<pre><code class="language-shell">webfleet setup --email-file /run/secrets/admin-email --password-file /run/secrets/admin-password
 webfleet serve</code></pre>
 
 <p>The release path provides checksum-verified install, download and update scripts for Linux and macOS. Until the first tag is published, these commands correctly have no stable release to resolve.</p>
@@ -41,4 +41,4 @@ Interval: 60 seconds</code></pre>
 <p>The shipped default tracker does not require cookies or persistent visitor profiles. It validates the configured site origin, bounds event payloads, rate-limits attacker-reachable ingestion and stores no raw client IP address.</p>
 
 <h2 id="next">Next reading</h2>
-<p>Read <a href="@pathto('docs/overview')">Product overview</a> for the product boundary, or <a href="@pathto('docs/architecture')">Architecture</a> for the implementation direction.</p>
+<p>Read <a href="@path('docs/overview')">Product overview</a> for the product boundary, or <a href="@path('docs/architecture')">Architecture</a> for the implementation direction.</p>
