@@ -39,6 +39,9 @@
         ├── Analytics properties ── Events / rollups
         └── Deployment events</code></pre>
 
+<h2 id="clustering">Clustering</h2>
+<p>Web Fleet can replicate its fleet topology/configuration across an explicit Raft cluster while keeping monitoring observations and external side effects node-local. See <a href="@path('docs/clustering')">Clustering</a> for the authority, storage and recovery contract.</p>
+
 <h2 id="scale-rule">Scale rule</h2>
 <p>Measure before adding infrastructure. Queues, specialized analytics databases and HA coordination should be introduced only when a documented workload demonstrates that the simpler architecture is insufficient.</p>
 <h2 id="process-roles">Optional process roles</h2><p>The default remains one integrated process. Larger deployments can separate responsibilities without changing the product model.</p><pre><code class="language-shell">webfleet serve

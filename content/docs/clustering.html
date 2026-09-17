@@ -1,0 +1,43 @@
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Clustering</h1>
+<p class="docs-lede">Run Web Fleet's fleet configuration as an explicitly replicated SQLite cluster using the shared Gantry Core Raft runtime.</p>
+
+<h2 id="surface">Initial clustered surface</h2>
+<p>The first clustered surface is intentionally narrow: groups, sites and site tags are consensus-owned, along with stable cluster identities and durable replication operation state. Numeric SQLite row IDs remain local materialization details.</p>
+<p>Monitoring/check history, incidents, audit and crawl observations, TLS/DNS/performance data, analytics, deployments, header expectations, notification/webhook state, users/sessions/API tokens, launcher state and external side effects remain node-local in this first release. Raft replay never runs checks, crawls, notifications or webhooks.</p>
+
+<h2 id="authority">Authority and failure behaviour</h2>
+<pre><code class="language-text">standalone                 -&gt; ordinary local fleet writes
+replicated ready leader    -&gt; Raft proposal
+replicated ready follower  -&gt; authenticated forward to leader
+replicated unavailable     -&gt; reject; never fall back to local SQL</code></pre>
+<p>A follower waits until the committed entry is locally applied before returning success. <code>Idempotency-Key</code> is carried as the durable operation identity so a retry cannot silently become a second fleet mutation.</p>
+
+<h2 id="storage">Storage boundary</h2>
+<p>Clustered materialization is SQLite-only in the initial implementation. Enabling replication with PostgreSQL fails closed. A node must start clustering with a clean site/group configuration; automatic merging of independently populated Web Fleet databases is deliberately not supported.</p>
+
+<h2 id="configuration">Configuration</h2>
+<pre><code class="language-shell">WEBFLEET_REPLICATION_ENABLED=true
+WEBFLEET_REPLICATION_NODE_ID=wf-node-a
+WEBFLEET_REPLICATION_LISTEN=10.0.0.10:7440
+WEBFLEET_REPLICATION_BOOTSTRAP=true
+WEBFLEET_REPLICATION_TLS_CERT=/etc/webfleet/replication.crt
+WEBFLEET_REPLICATION_TLS_KEY=/etc/webfleet/replication.key
+WEBFLEET_REPLICATION_TLS_CA=/etc/webfleet/replication-ca.crt</code></pre>
+<p>Production replication requires the complete cert/key/CA mTLS configuration. Plaintext is an explicit development/test opt-in only.</p>
+
+<h2 id="membership">Pairing and voter membership</h2>
+<p>Gantry pairing and Raft membership are separate. Pair every replication participant using Web Fleet's cluster trust flow, then add voters explicitly. Pairing a node never silently grants it a consensus vote.</p>
+<pre><code class="language-shell">webfleet replicate status --user admin@example.com --password '...'
+webfleet replicate join --user admin@example.com --password '...' wf-node-b 10.0.0.11:7440
+webfleet replicate snapshot --user admin@example.com --password '...'</code></pre>
+<p>The replication operator endpoints use the normal Web Fleet administrator session/CSRF boundary.</p>
+
+<h2 id="quorum">Quorum</h2>
+<p>Raft owns quorum. Three voters require two for authoritative writes; losing quorum makes fleet mutations fail closed. The implementation does not contain a three-node ceiling, although three voters are the topology already proven by the shared Gantry runtime in sibling products. Web Fleet itself still requires independent certification and dogfood before release claims are made.</p>
+
+<h2 id="snapshots">Snapshots and recovery</h2>
+<p>Snapshots carry the consensus-owned group/site/tag state and durable operation identities. Restore reconciles existing clustered rows in place, preserving their local numeric IDs so node-local monitoring history is not destroyed merely by consensus recovery. Site deletion remains a real fleet deletion and therefore follows the normal dependent-data semantics.</p>
+
+<h2 id="security">Security model</h2>
+<p>Raft transport uses mTLS plus Gantry's pairwise peer credentials, identity binding, capability checks, replay protection and peer revalidation. Disabling or revoking a peer removes its replication authority; Raft voter membership remains a separate operator decision.</p>
