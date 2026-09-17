@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Web Fleet</title>
+<link rel="icon" href="/assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://gantry.cv">Gantry</a>
+      <a href="https://github.com/webfleet-cv/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="https://gantry.cv">Gantry</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/webfleet-cv/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<p class="eyebrow">Operate Web Fleet</p>
+<h1>Clustering</h1>
+<p class="docs-lede">Run Web Fleet's fleet configuration as an explicitly replicated SQLite cluster using the shared Gantry Core Raft runtime.</p>
+
+<h2 id="surface">Initial clustered surface</h2>
+<p>The first clustered surface is intentionally narrow: groups, sites and site tags are consensus-owned, along with stable cluster identities and durable replication operation state. Numeric SQLite row IDs remain local materialization details.</p>
+<p>Monitoring/check history, incidents, audit and crawl observations, TLS/DNS/performance data, analytics, deployments, notification/webhook state, users/sessions/API tokens, launcher state and external side effects remain node-local in this first release. Raft replay never runs checks, crawls, notifications or webhooks.</p>
+<p>Note: materializing a site also creates its default monitor, health row and security-header expectations on every replica as part of the consensus-owned site definition — those are replicated, not node-local. Anything those defaults subsequently observe (check results, history, incidents) stays node-local.</p>
+<p>The older propagation subsystem remains separate from Raft replication. While clustering is enabled, propagation of site/request definitions is rejected so it cannot bypass consensus-owned fleet topology; monitor-definition propagation remains node-local and does not make monitor execution consensus-owned.</p>
+
+<h2 id="authority">Authority and failure behaviour</h2>
+<pre><code class="language-text">standalone                 -&gt; ordinary local fleet writes
+replicated ready leader    -&gt; Raft proposal
+replicated ready follower  -&gt; authenticated forward to leader
+replicated unavailable     -&gt; reject; never fall back to local SQL</code></pre>
+<p>A follower waits until the committed entry is locally applied before returning success. <code>Idempotency-Key</code> is carried as the durable operation identity so a retry cannot silently become a second fleet mutation.</p>
+
+<h2 id="storage">Storage boundary</h2>
+<p>Clustered materialization is SQLite-only in the initial implementation. Enabling replication with PostgreSQL fails closed. A node must start clustering with a clean site/group configuration; automatic merging of independently populated Web Fleet databases is deliberately not supported.</p>
+
+<h2 id="configuration">Configuration</h2>
+<pre><code class="language-shell">WEBFLEET_REPLICATION_ENABLED=true
+WEBFLEET_REPLICATION_NODE_ID=wf-node-a
+WEBFLEET_REPLICATION_LISTEN=10.0.0.10:7440
+WEBFLEET_REPLICATION_BOOTSTRAP=true
+WEBFLEET_REPLICATION_TLS_CERT=/etc/webfleet/replication.crt
+WEBFLEET_REPLICATION_TLS_KEY=/etc/webfleet/replication.key
+WEBFLEET_REPLICATION_TLS_CA=/etc/webfleet/replication-ca.crt</code></pre>
+<p>Production replication requires the complete cert/key/CA mTLS configuration. Plaintext is an explicit development/test opt-in only.</p>
+
+<h2 id="membership">Pairing and voter membership</h2>
+<p>Gantry pairing and Raft membership are separate. Pair every replication participant using Web Fleet's cluster trust flow, then add voters explicitly. Pairing a node never silently grants it a consensus vote. <code>webfleet replicate join</code> rejects the request unless the target is an active, paired Gantry member that advertises the replication capability and a compatible protocol — an unpaired or disabled peer is refused before the Raft configuration changes, so an invalid join cannot make the cluster read-only.</p>
+<pre><code class="language-shell">webfleet replicate status --user admin@example.com --password '...'
+webfleet replicate join --user admin@example.com --password '...' wf-node-b 10.0.0.11:7440
+webfleet replicate snapshot --user admin@example.com --password '...'</code></pre>
+<p>The replication operator endpoints use the normal Web Fleet administrator session/CSRF boundary.</p>
+
+<h2 id="quorum">Quorum</h2>
+<p>Raft owns quorum. Three voters require two for authoritative writes; losing quorum makes fleet mutations fail closed. The implementation does not contain a three-node ceiling, and Web Fleet itself is locally certified at three voters (with a five-voter smoke certification also passing) through the same generic path used by the shared Gantry runtime. Real-infrastructure dogfood has not been performed yet, so no arbitrary-size production claims are made before that evidence exists.</p>
+
+<h2 id="snapshots">Snapshots and recovery</h2>
+<p>Snapshots carry the consensus-owned group/site/tag state and durable operation identities. Restore reconciles existing clustered rows in place, preserving their local numeric IDs so node-local monitoring history is not destroyed merely by consensus recovery. Site deletion remains a real fleet deletion and therefore follows the normal dependent-data semantics.</p>
+
+<h2 id="security">Security model</h2>
+<p>Raft transport uses mTLS plus Gantry's pairwise peer credentials, identity binding, capability checks, replay protection and peer revalidation. Disabling or revoking a peer removes its replication authority; Raft voter membership remains a separate operator decision.</p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/webfleet-cv/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

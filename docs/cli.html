@@ -1,4 +1,115 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Command-line administration · Web Fleet</title><link rel="stylesheet" href="../assets/css/style.css"></head><body><main class="docs-content"><p class="eyebrow">Documentation</p><h1>Command-line administration</h1><pre><code>webfleet setup --email-file /run/secrets/admin-email --password-file /run/secrets/admin-password
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web Fleet - self-hosted monitoring and analytics for all your websites.">
+<meta name="theme-color" content="#171817">
+<title>Web Fleet</title>
+<link rel="icon" href="/assets/images/web-fleet-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../" aria-label="Web Fleet home">
+      <img src="../assets/images/web-fleet-mark.svg" alt="" width="30" height="30">
+      <span>Web Fleet</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="https://gantry.cv">Gantry</a>
+      <a href="https://github.com/webfleet-cv/webfleet">GitHub</a>
+    </nav>
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <a href="../">Home</a>
+      <a href="./getting-started.html">Getting started</a>
+      <a href="./overview.html">Product overview</a>
+      <a href="https://gantry.cv">Gantry</a>
+      <a href="./monitoring.html">Monitoring</a>
+      <a href="./analytics.html">Analytics</a>
+      <a href="./website-health.html">Website health</a>
+      <a href="./alerts.html">Alerts and incidents</a>
+      <a href="./self-hosting.html">Self-hosting</a>
+      <a href="./architecture.html">Architecture</a>
+      <a href="./api.html">API and integrations</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/webfleet-cv/webfleet">GitHub</a>
+    </nav>
+  </div>
+</div>
+<main class="docs-shell">
+<aside class="docs-sidebar" aria-label="Documentation navigation">
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Start here</p>
+    <a href="./getting-started.html">Getting started</a>
+    <a href="./cli.html">CLI administration</a>
+    <a href="./convenient-access.html">Convenient access</a>
+    <a href="./overview.html">Product overview</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Core features</p>
+    <a href="./monitoring.html">Monitoring</a>
+    <a href="./analytics.html">Analytics</a>
+    <a href="./website-health.html">Website health</a>
+    <a href="./alerts.html">Alerts and incidents</a>
+  </div>
+  <div class="docs-nav-section">
+    <p class="docs-nav-label">Operate Web Fleet</p>
+    <a href="./self-hosting.html">Self-hosting</a>
+    <a href="./first-run.html">First-run setup</a>
+    <a href="./hosting.html">Hosting and deployment</a>
+    <a href="./subdomains.html">Company subdomains</a>
+    <a href="./caddy.html">Caddy</a>
+    <a href="./nginx.html">nginx</a>
+    <a href="./deployment-troubleshooting.html">Deployment troubleshooting</a>
+    <a href="./battle-tested.html">Battle tested</a>
+    <a href="./architecture.html">Architecture</a>
+    <a href="./clustering.html">Clustering</a>
+    <a href="./api.html">API and integrations</a>
+    <a href="./roadmap.html">Roadmap</a>
+  </div>
+</aside>
+<article class="docs-content">
+<p class="eyebrow">Documentation</p><h1>Command-line administration</h1><p>Web Fleet supports headless first-run provisioning and machine-readable configuration inspection.</p><pre><code>webfleet setup --email-file /run/secrets/admin-email --password-file /run/secrets/admin-password
 webfleet config show --json
+webfleet service status
 webfleet reset --auth --confirm "WEBFLEET AUTH"
-webfleet reset --all --confirm "WEBFLEET ALL"</code></pre><p>Stop Web Fleet before reset. SQLite backups are retained; PostgreSQL reset fails closed.</p><p><a href="../docs.html">Back to documentation</a> · <a href="https://gantry.cv">Gantry</a></p></main></body></html>
+webfleet reset --all --confirm "WEBFLEET ALL"</code></pre><p>Stop Web Fleet before reset. Timestamped backups are retained. Reset currently operates on SQLite and fails closed for PostgreSQL, where you should use a database-native backup and reset workflow.</p><p>Environment variables, service commands, backup/restore operations and the HTTP API provide stable primitives for SSH orchestration and generated deployment scripts. Passwords belong in files, not process arguments.</p>
+
+<h2 id="replication">Replication operators</h2>
+<p>When clustering is enabled, use the authenticated operator surface to inspect Raft state, add voters explicitly and request a snapshot.</p>
+<pre><code class="language-shell">webfleet replicate status --user admin@example.com --password '...'
+webfleet replicate join --user admin@example.com --password '...' wf-node-b 10.0.0.11:7440
+webfleet replicate snapshot --user admin@example.com --password '...'</code></pre>
+<p>Gantry pairing and Raft voter membership are separate. See <a href="./clustering.html">Clustering</a>.</p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a class="brand footer-brand" href="../">
+        <img src="../assets/images/web-fleet-mark.svg" alt="" width="26" height="26">
+        <span>Web Fleet</span>
+      </a>
+      <p>Self-hosted monitoring and analytics for all your websites.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./getting-started.html">Docs</a>
+      <a href="./roadmap.html">Roadmap</a>
+      <a href="https://github.com/webfleet-cv/webfleet">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
