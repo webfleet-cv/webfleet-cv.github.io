@@ -117,6 +117,11 @@
       "title": "update",
       "content-ext": ".sh",
       "output-ext": ".sh"
+    },
+    {
+      "name": "docs/clustering",
+      "title": "Clustering",
+      "template": "templates/template.html"
     }
   ]
 }

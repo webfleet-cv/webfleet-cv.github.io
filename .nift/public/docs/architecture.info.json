@@ -27,6 +27,8 @@
     "public/docs/architecture.html",
     "public/docs/battle-tested.html",
     "public/docs/caddy.html",
+    "public/docs/cli.html",
+    "public/docs/clustering.html",
     "public/docs/convenient-access.html",
     "public/docs/deployment-troubleshooting.html",
     "public/docs/first-run.html",

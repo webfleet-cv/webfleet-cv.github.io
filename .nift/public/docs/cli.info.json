@@ -1,9 +1,9 @@
 {
-  "name": "docs/battle-tested",
-  "title": "Battle tested",
+  "name": "docs/cli",
+  "title": "Command-line administration",
   "template": "templates/docs.html",
-  "content": "content/docs/battle-tested.html",
-  "output": "public/docs/battle-tested.html",
+  "content": "content/docs/cli.html",
+  "output": "public/docs/cli.html",
   "minify": false,
   "minify-version": 0,
   "pagination": false,
@@ -12,7 +12,7 @@
   "pagination-separator": "",
   "pagination-pages": 0,
   "dependencies": [
-    "content/docs/battle-tested.html",
+    "content/docs/cli.html",
     "templates/docs.html",
     "templates/head.html",
     "templates/partials/docs-nav.html",

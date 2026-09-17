@@ -4,7 +4,8 @@
 
 <h2 id="surface">Initial clustered surface</h2>
 <p>The first clustered surface is intentionally narrow: groups, sites and site tags are consensus-owned, along with stable cluster identities and durable replication operation state. Numeric SQLite row IDs remain local materialization details.</p>
-<p>Monitoring/check history, incidents, audit and crawl observations, TLS/DNS/performance data, analytics, deployments, header expectations, notification/webhook state, users/sessions/API tokens, launcher state and external side effects remain node-local in this first release. Raft replay never runs checks, crawls, notifications or webhooks.</p>
+<p>Monitoring/check history, incidents, audit and crawl observations, TLS/DNS/performance data, analytics, deployments, notification/webhook state, users/sessions/API tokens, launcher state and external side effects remain node-local in this first release. Raft replay never runs checks, crawls, notifications or webhooks.</p>
+<p>Note: materializing a site also creates its default monitor, health row and security-header expectations on every replica as part of the consensus-owned site definition — those are replicated, not node-local. Anything those defaults subsequently observe (check results, history, incidents) stays node-local.</p>
 <p>The older propagation subsystem remains separate from Raft replication. While clustering is enabled, propagation of site/request definitions is rejected so it cannot bypass consensus-owned fleet topology; monitor-definition propagation remains node-local and does not make monitor execution consensus-owned.</p>
 
 <h2 id="authority">Authority and failure behaviour</h2>
@@ -28,14 +29,14 @@ WEBFLEET_REPLICATION_TLS_CA=/etc/webfleet/replication-ca.crt</code></pre>
 <p>Production replication requires the complete cert/key/CA mTLS configuration. Plaintext is an explicit development/test opt-in only.</p>
 
 <h2 id="membership">Pairing and voter membership</h2>
-<p>Gantry pairing and Raft membership are separate. Pair every replication participant using Web Fleet's cluster trust flow, then add voters explicitly. Pairing a node never silently grants it a consensus vote.</p>
+<p>Gantry pairing and Raft membership are separate. Pair every replication participant using Web Fleet's cluster trust flow, then add voters explicitly. Pairing a node never silently grants it a consensus vote. <code>webfleet replicate join</code> rejects the request unless the target is an active, paired Gantry member that advertises the replication capability and a compatible protocol — an unpaired or disabled peer is refused before the Raft configuration changes, so an invalid join cannot make the cluster read-only.</p>
 <pre><code class="language-shell">webfleet replicate status --user admin@example.com --password '...'
 webfleet replicate join --user admin@example.com --password '...' wf-node-b 10.0.0.11:7440
 webfleet replicate snapshot --user admin@example.com --password '...'</code></pre>
 <p>The replication operator endpoints use the normal Web Fleet administrator session/CSRF boundary.</p>
 
 <h2 id="quorum">Quorum</h2>
-<p>Raft owns quorum. Three voters require two for authoritative writes; losing quorum makes fleet mutations fail closed. The implementation does not contain a three-node ceiling, although three voters are the topology already proven by the shared Gantry runtime in sibling products. Web Fleet itself still requires independent certification and dogfood before release claims are made.</p>
+<p>Raft owns quorum. Three voters require two for authoritative writes; losing quorum makes fleet mutations fail closed. The implementation does not contain a three-node ceiling, and Web Fleet itself is locally certified at three voters (with a five-voter smoke certification also passing) through the same generic path used by the shared Gantry runtime. Real-infrastructure dogfood has not been performed yet, so no arbitrary-size production claims are made before that evidence exists.</p>
 
 <h2 id="snapshots">Snapshots and recovery</h2>
 <p>Snapshots carry the consensus-owned group/site/tag state and durable operation identities. Restore reconciles existing clustered rows in place, preserving their local numeric IDs so node-local monitoring history is not destroyed merely by consensus recovery. Site deletion remains a real fleet deletion and therefore follows the normal dependent-data semantics.</p>
