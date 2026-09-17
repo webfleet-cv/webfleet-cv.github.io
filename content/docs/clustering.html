@@ -5,6 +5,7 @@
 <h2 id="surface">Initial clustered surface</h2>
 <p>The first clustered surface is intentionally narrow: groups, sites and site tags are consensus-owned, along with stable cluster identities and durable replication operation state. Numeric SQLite row IDs remain local materialization details.</p>
 <p>Monitoring/check history, incidents, audit and crawl observations, TLS/DNS/performance data, analytics, deployments, header expectations, notification/webhook state, users/sessions/API tokens, launcher state and external side effects remain node-local in this first release. Raft replay never runs checks, crawls, notifications or webhooks.</p>
+<p>The older propagation subsystem remains separate from Raft replication. While clustering is enabled, propagation of site/request definitions is rejected so it cannot bypass consensus-owned fleet topology; monitor-definition propagation remains node-local and does not make monitor execution consensus-owned.</p>
 
 <h2 id="authority">Authority and failure behaviour</h2>
 <pre><code class="language-text">standalone                 -&gt; ordinary local fleet writes
